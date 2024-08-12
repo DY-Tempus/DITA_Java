@@ -1,0 +1,23 @@
+/* Account 테이블에 데이터 삽입 */
+INSERT INTO Account (User_ID, User_PW, User_Branch, User_Address) VALUES ('user1', '1234', '동의대점', 'Address1');
+INSERT INTO Account (User_ID, User_PW, User_Branch, User_Address) VALUES ('user2', '1234', '서면점', 'Address2');
+
+/* Guest 테이블에 데이터 삽입 */
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('guest1', 'user1');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('guest2', 'user2');
+
+/* Category 테이블에 데이터 삽입 */
+INSERT INTO Category (Ctg_Name) VALUES ('메인 메뉴'); 
+INSERT INTO Category (Ctg_Name) VALUES ('세트 메뉴');
+
+/* Menu 테이블에 데이터 삽입 */
+INSERT INTO Menu (Ctg_Name, Menu_Name, Menu_Price) VALUES ('메인 메뉴', 'Pizza', 15000);
+INSERT INTO Menu (Ctg_Name, Menu_Name, Menu_Price) VALUES ('세트 메뉴', 'Burger', 8000);
+
+/* Orders 테이블에 데이터 삽입 */
+INSERT INTO Orders (User_ID, Guest_ID, Order_Date) VALUES ('user1', 'guest1', TO_DATE('2024-08-01', 'YYYY-MM-DD'));
+INSERT INTO Orders (User_ID, Guest_ID, Order_Date) VALUES ('user2', 'guest2', TO_DATE('2024-08-02', 'YYYY-MM-DD'));
+
+/* Order_detail 테이블에 데이터 삽입 */
+INSERT INTO Order_detail (Order_No, Menu_No, Ctg_Name, Order_Num) VALUES (1, 1, '메인 메뉴', 2); 
+INSERT INTO Order_detail (Order_No, Menu_No, Ctg_Name, Order_Num) VALUES (2, 2, '세트 메뉴', 3); 
