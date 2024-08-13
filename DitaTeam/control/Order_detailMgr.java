@@ -160,7 +160,7 @@ public class Order_detailMgr {
 	}
 	
 	// 상세 주문 목록 조회.
-	public Vector<Order_detail> select_Order_Detail(int Order_No){
+	public Vector<Order_detail> selectOrder_detail(int Order_No){
 		Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

@@ -8,3 +8,7 @@
 /MenuMgr.class
 /guestMgr.class
 /GuestMgr.class
+/NotificationServer$ClientHandler.class
+/NotificationServer.class
+/TableServer$ClientHandler.class
+/TableServer.class
