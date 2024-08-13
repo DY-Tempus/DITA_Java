@@ -14,8 +14,8 @@ public class AccountMgr {
         pool = DBConnectionMgr.getInstance();
     }
     
-    // 로그인 검사
-    public boolean checkLogin(String id, String pwd, Account bean) {
+    // 관리자 테이블 검색 메소드 (로그인 검사)
+    public boolean selectAccount(Account bean) {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -25,8 +25,8 @@ public class AccountMgr {
         try {
             con = pool.getConnection();
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, id);
-            pstmt.setString(2, pwd);
+            pstmt.setString(1, bean.getUser_ID());
+            pstmt.setString(2, bean.getUser_PW());
             rs = pstmt.executeQuery();
             
             if (rs.next()) { 
@@ -46,8 +46,8 @@ public class AccountMgr {
         return flag;
     }
     
-    // 회원가입
-    public boolean registerAccount(Account bean) {
+    // 관리자 테이블 삽입 메소드. (회원가입)
+    public boolean insertAccount(Account bean) {
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -74,6 +74,30 @@ public class AccountMgr {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+		}
+		return flag;
+    }
+    
+    // 관리자 테이블 수정
+    public boolean updateAccount(Account bean) {
+    	Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE set User_Branch = ?, User_Address = ? where User_ID = ? and User_PW = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getUser_Branch());
+			pstmt.setString(2, bean.getUser_Address());
+			pstmt.setString(3, bean.getUser_ID());
+			pstmt.setString(4, bean.getUser_PW());
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.closeResources(con, pstmt, null);
 		}
 		return flag;
     }

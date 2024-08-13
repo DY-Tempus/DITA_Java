@@ -19,7 +19,7 @@ public class Order_detailMgr {
 	}
 	
 	// 주문 상세 목록 삽입.
-	public boolean insert_Detail(Vector <Order_detail> list) {
+	public boolean insertOrder_detail(Vector <Order_detail> list) {
 		Connection con = null;
         PreparedStatement pstmt = null;
         String sql = "INSERT INTO Order_detail (Order_No, Menu_Name, Ctg_Name, Order_Num) VALUES (?, ?, ?, ?)";
@@ -67,7 +67,7 @@ public class Order_detailMgr {
     }
 	
 	// 주문 상세 목록 삭제.
-	public boolean delete_Detail(Vector <Order_detail> list) {
+	public boolean deleteOrder_detail(Vector <Order_detail> list) {
 			Connection con = null;
 	        PreparedStatement pstmt = null;
 	        String sql = "DELETE From Order_detail where Order_No = ? and Menu_Name = ?";
@@ -113,10 +113,10 @@ public class Order_detailMgr {
 	    }
 	
 	// 상세 주문 목록 변경.
-	public boolean update_Order_Detail(Vector <Order_detail> list) {
+	public boolean updateOrder_detail(Vector <Order_detail> list) {
 		Connection con = null;
         PreparedStatement pstmt = null;
-        String sql = "UPDATE From Order_detail where Order_No = ? and Menu_Name = ?";
+        String sql = "UPDATE Order_detail set Order_Number = ? where Order_No = ? and Menu_Name = ?";
         boolean flag = false;
 
         try {
@@ -126,8 +126,9 @@ public class Order_detailMgr {
             pstmt = con.prepareStatement(sql);
 
             for (Order_detail order : list) {
-                pstmt.setInt(1, order.getOrder_No());
-                pstmt.setString(2, order.getMenu_Name());
+                pstmt.setInt(1, order.getOrder_Num());
+                pstmt.setInt(2, order.getOrder_No());
+                pstmt.setString(3, order.getMenu_Name());
                 pstmt.addBatch(); // 배치에 추가
             }
 
@@ -195,29 +196,39 @@ public class Order_detailMgr {
 		
  	public static void main(String[] args) {
 		
-		// 주문 상세 삽입, 삭제 예시.
-		Vector <Order_detail> list = new Vector();
 		Order_detailMgr mgr = new Order_detailMgr();
+ 		
+		// 주문 상세 삽입 예시.
+		/* Vector <Order_detail> list = new Vector();
 		
 		Order_detail order1 = new Order_detail();
-		order1.setOrder_No(1);
+		order1.setOrder_No(3);
 		order1.setMenu_Name("삽겹살");
 		order1.setCtg_Name("메인 메뉴");
-		order1.setOrder_Num(2);
+		order1.setOrder_Num(4);
 		list.add(order1);
 		
 		Order_detail order2 = new Order_detail();
-		order2.setOrder_No(1);
-		order2.setMenu_Name("삽겹살+불고기");
-		order2.setCtg_Name("세트 메뉴");
-		order2.setOrder_Num(3);
+		order2.setOrder_No(3);
+		order2.setMenu_Name("불고기");
+		order2.setCtg_Name("메인 메뉴");
+		order2.setOrder_Num(2);
 		list.add(order2);
 		
 		
-		 if(mgr.insert_Detail(list)) { 
+		 if(mgr.insertOrder_detail(list)) { 
 			 System.out.println("삽입 되었습니다."); 
-		 }
+		 } */
 		 
+ 		
+ 		// 상세 주문 목록 조회 예시.
+ 		/* Vector <Order_detail> list = new Vector<Order_detail>();
+ 		list = mgr.select_Order_Detail(3);
+ 		
+ 		for (Order_detail order_detail : list) {
+			System.out.println("주문번호 : " + order_detail.getOrder_No() + ", 메뉴 : " + order_detail.getMenu_Name()
+			+ ", 수량 : " + order_detail.getOrder_Num());
+		} */
 		
 		
 	}

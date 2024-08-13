@@ -2,3 +2,9 @@
 /DBConnectionMgr.class
 /OrderMgr.class
 /Order_detailMgr.class
+/categoryMgr.class
+/CategoryMgr.class
+/menuMgr.class
+/MenuMgr.class
+/guestMgr.class
+/GuestMgr.class
