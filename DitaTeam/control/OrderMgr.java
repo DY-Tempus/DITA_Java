@@ -92,7 +92,7 @@ public class OrderMgr {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+			pool.closeResources(con, pstmt, null);
 		}
 		return flag;
 	}

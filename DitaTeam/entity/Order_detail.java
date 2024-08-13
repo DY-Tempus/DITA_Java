@@ -2,10 +2,9 @@ package entity;
 
 public class Order_detail {
 	private int Order_No;
-	private int Menu_No;
+	private String Menu_Name;
 	private String Ctg_Name;
 	private int Order_Num;
-	
 	
 	public int getOrder_No() {
 		return Order_No;
@@ -13,11 +12,11 @@ public class Order_detail {
 	public void setOrder_No(int order_No) {
 		Order_No = order_No;
 	}
-	public int getMenu_No() {
-		return Menu_No;
+	public String getMenu_Name() {
+		return Menu_Name;
 	}
-	public void setMenu_No(int menu_No) {
-		Menu_No = menu_No;
+	public void setMenu_Name(String menu_Name) {
+		Menu_Name = menu_Name;
 	}
 	public String getCtg_Name() {
 		return Ctg_Name;
@@ -25,7 +24,6 @@ public class Order_detail {
 	public void setCtg_Name(String ctg_Name) {
 		Ctg_Name = ctg_Name;
 	}
-
 	public int getOrder_Num() {
 		return Order_Num;
 	}
@@ -34,5 +32,6 @@ public class Order_detail {
 	}
 	
 	
+
 	
 }

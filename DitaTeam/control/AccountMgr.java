@@ -40,13 +40,7 @@ public class AccountMgr {
             e.printStackTrace();
         } finally {
             // 자원 해제
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        	pool.closeResources(con, pstmt, rs);
         }
         
         return flag;
