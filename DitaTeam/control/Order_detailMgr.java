@@ -22,6 +22,7 @@ public class Order_detailMgr {
 	public boolean insertOrder_detail(Vector <Order_detail> list) {
 		Connection con = null;
         PreparedStatement pstmt = null;
+		ResultSet rs = null;
         String sql = "INSERT INTO Order_detail (Order_No, Menu_Name, Ctg_Name, Order_Num) VALUES (?, ?, ?, ?)";
         boolean flag = false;
 
@@ -29,6 +30,11 @@ public class Order_detailMgr {
             con = pool.getConnection();
             con.setAutoCommit(false); // 배치 작업을 위해 수동 커밋 모드로 설정
 
+			// 새 Order_ID를 가져오는 쿼리
+	        String selectSql = "SELECT COALESCE(MAX(Order_No), 0) + 1 AS new_id FROM Order_detail";
+	        pstmt = con.prepareStatement(selectSql);
+	        rs = pstmt.executeQuery();
+            
             pstmt = con.prepareStatement(sql);
 
             for (Order_detail order : list) {

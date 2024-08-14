@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import entity.Account;
 import entity.Guest;
 
 public class GuestMgr {
@@ -17,6 +18,35 @@ public class GuestMgr {
 	public GuestMgr() {
 		pool=DBConnectionMgr.getInstance();
 	}
+	
+	// 게스트 검색 
+    public boolean selectGuest(Guest bean) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Guest WHERE Guest_ID = ? AND USER_ID = ?";
+        
+        boolean flag = false;
+        try {
+            con = pool.getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, bean.getGuest_ID());
+            pstmt.setString(2, bean.getUser_ID());
+            rs = pstmt.executeQuery();
+            
+            if (rs.next()) { 
+                flag = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 자원 해제
+        	pool.closeResources(con, pstmt, rs);
+        }
+        
+        return flag;
+    }
+	
 
 	//모든 게스트 불러오기
 	public Vector<Guest> selectAllGuest(){

@@ -69,9 +69,6 @@ public class TableServer {
                 DataType dt = (DataType) in.readObject();
 
 				switch(dt.protocol) {
-				case Protocol.loginAcc:
-					loginAcc(dt);
-					break;
 				case Protocol.loginGuest:
 					break;
 				case Protocol.menulist:

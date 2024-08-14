@@ -15,8 +15,10 @@ import java.util.Vector;
 
 import entity.Account;
 import entity.Menu;
+import entity.Order;
 import entity.Protocol;
 import entity.DataType;
+import entity.Guest;
 
 public class Server {
 	public static final int PORT = 8003;
@@ -76,8 +78,8 @@ public class Server {
 		public Client(Socket sock) {
 			this.sock=sock;
 			try {
-				oos=new ObjectOutputStream(sock.getOutputStream());
-				ois=new ObjectInputStream(sock.getInputStream());
+				oos = new ObjectOutputStream(sock.getOutputStream());
+				ois = new ObjectInputStream(sock.getInputStream());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -90,14 +92,15 @@ public class Server {
 					DataType data=(DataType)ois.readObject();
 
 					switch(data.protocol) {
-					case Protocol.loginAcc:
-						loginAcc(data);
-						break;
 					case Protocol.loginGuest:
+						loginGuest(data);
 						break;
 					case Protocol.menulist:
+						menulist(data);
 						break;
 					case Protocol.order:
+						break;
+					case Protocol.order_detail:
 						break;
 					}
 				}//--while
@@ -106,24 +109,20 @@ public class Server {
 			}
 		}//--run
 		
-		public void loginAcc(DataType data) {
-			boolean bool=accMgr.selectAccount((Account)data.obj);
-			if(bool) {//-로그인 성공
-				try {
-					oos.writeObject((Account)data.obj);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			else {//-로그인 실패
-				
-			}
-		}
-		
+		// 게스트 로그인.
 		public void loginGuest(DataType data) {
 			
+			Guest guest = (Guest) data.obj;
+			try {
+				if(guestMgr.selectGuest(guest)) {
+					oos.writeObject(data);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
+		// 메뉴 리스트 추가.
 		public void menulist(DataType data) {
 			Vector<Menu> v=menuMgr.selectAllMenu();
 			data.obj=v;
@@ -134,8 +133,16 @@ public class Server {
 			}
 		}
 		
+		// 주문하기.
 		public void order(DataType data) {
-			
+			Order order = (Order) data.obj;
+			try {
+				if(orderMgr.insertOrder(order)) {
+					oos.writeObject(data);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		
