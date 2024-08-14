@@ -1,6 +1,8 @@
 package entity;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable {
 	private String Ctg_Name;
 	private String Menu_Name;
 	private int Menu_Price;

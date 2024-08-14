@@ -1,8 +1,9 @@
 package entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Order {
+public class Order implements Serializable {
 	private int Order_No;
 	private String User_ID;
 	private String Guest_ID;

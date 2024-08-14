@@ -8,5 +8,4 @@ public class DataType implements Serializable {
     public int protocol;
     public Object obj;
 
-    // 기본 생성자 및 기타 메서드 (필요 시)
 }

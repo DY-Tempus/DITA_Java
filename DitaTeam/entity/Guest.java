@@ -1,6 +1,8 @@
 package entity;
 
-public class Guest {
+import java.io.Serializable;
+
+public class Guest implements Serializable {
 	private String Guest_ID;
 	private String User_ID;
 	

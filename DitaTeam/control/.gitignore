@@ -12,3 +12,5 @@
 /NotificationServer.class
 /TableServer$ClientHandler.class
 /TableServer.class
+/Server$Client.class
+/Server.class

@@ -6,6 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="C:/Users/718_05/Downloads/ojdbc11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/718_05/Documents/GitHub/DITA_Java/DitaTeam/ojdbc11.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

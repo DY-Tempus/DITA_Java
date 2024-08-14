@@ -16,8 +16,8 @@ import entity.DataType;
 import entity.Order_detail;
 
 public class UserClient {
-    private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 12345;
+    private static final String SERVER_ADDRESS = "113.198.238.113";
+    private static final int SERVER_PORT = 8003;
     private Order_detail order = new Order_detail(); // 주문 상세 정보
     private DataType dt;
     public UserClient() {
@@ -35,6 +35,8 @@ public class UserClient {
                 }
                 // 소켓 통신을 별도의 스레드에서 처리
                 new Thread(() -> sendOrderDetails()).start();
+                
+               
             }
         });
 
@@ -50,7 +52,7 @@ public class UserClient {
     private void sendOrderDetails() {
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
-
+        	
             // 상세 주문 목록 조회 예시
             Order_detailMgr mgr = new Order_detailMgr();
             Vector<Order_detail> order = mgr.selectOrder_detail(3);
@@ -61,7 +63,7 @@ public class UserClient {
             
             out.writeObject(dt);
             out.flush();
-
+            System.out.println("서버와 접속이 연결되었습니다.");
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "서버와의 통신에 문제가 발생했습니다.");
