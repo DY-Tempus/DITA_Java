@@ -16,6 +16,7 @@ import java.util.Vector;
 import entity.Account;
 import entity.Menu;
 import entity.Order;
+import entity.Order_detail;
 import entity.Protocol;
 import entity.DataType;
 import entity.Guest;
@@ -99,9 +100,12 @@ public class Server {
 						menulist(data);
 						break;
 					case Protocol.order:
+						order(data);
 						break;
 					case Protocol.order_detail:
+						order_detail(data);
 						break;
+					
 					}
 				}//--while
 			}catch(Exception e){
@@ -116,6 +120,7 @@ public class Server {
 			try {
 				if(guestMgr.selectGuest(guest)) {
 					oos.writeObject(data);
+					System.out.println("게스트 로그인 성공");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -138,6 +143,17 @@ public class Server {
 			Order order = (Order) data.obj;
 			try {
 				if(orderMgr.insertOrder(order)) {
+					oos.writeObject(data);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void order_detail(DataType data) {
+			Vector <Order_detail> detail = (Vector <Order_detail>) data.obj;
+			try {
+				if(detailMgr.insertOrder_detail(detail)) {
 					oos.writeObject(data);
 				}
 			} catch (Exception e) {
