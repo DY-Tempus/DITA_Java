@@ -36,21 +36,22 @@ public class MLogin {
         	account.setUser_ID(userID.getText());
         	account.setUser_PW(userPW.getText());
         	AccountMgr accMgr = new AccountMgr();
-        	accMgr.selectAccount(account);
         	
-	        // Personnel.fxml 파일 로드
-	        Parent MTableRoot = FXMLLoader.load(getClass().getResource("MTable.fxml"));
-	            
-	        // 새로운 장면(Scene) 생성
-	        Scene MTableScene = new Scene(MTableRoot);
-	            
-	        // 현재 스테이지 가져오기
-	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	            
-	        // 새로운 장면으로 설정
-	        stage.setScene(MTableScene);
-	        stage.show();
-        	
+	        	if(accMgr.selectAccount(account)) {
+	        	
+		        // Personnel.fxml 파일 로드
+		        Parent MTableRoot = FXMLLoader.load(getClass().getResource("MTable.fxml"));
+		            
+		        // 새로운 장면(Scene) 생성
+		        Scene MTableScene = new Scene(MTableRoot);
+		            
+		        // 현재 스테이지 가져오기
+		        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		            
+		        // 새로운 장면으로 설정
+		        stage.setScene(MTableScene);
+		        stage.show();
+        	}
         } catch (Exception e) {
             e.printStackTrace();
         }
