@@ -15,7 +15,7 @@ public class Main extends Application {
     private static Stage primaryStage; // 메인 창의 참조를 저장할 정적 변수
     public static String SERVER_ADDRESS = "113.198.238.113";
     public static int SERVER_PORT = 8003;
-    
+    private Server server; // 서버 인스턴스 추가
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -47,10 +47,17 @@ public class Main extends Application {
             // 창을 화면의 중앙에 위치시키기
             primaryStage.setX((screenWidth - stageWidth) / 2);
             primaryStage.setY((screenHeight - stageHeight) / 2);
+            
+            // 서버를 별도의 스레드에서 실행
+            new Thread(() -> {
+                server = new Server();
+                server.startServer();
+            }).start();
 
         } catch(Exception e) {
             e.printStackTrace();
         }
+        
     }
 
     // 메인 창의 참조를 반환하는 정적 메서드
@@ -60,5 +67,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        
     }
 }

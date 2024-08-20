@@ -14,6 +14,34 @@ public class AccountMgr {
         pool = DBConnectionMgr.getInstance();
     }
     
+    // 아이디 중복 검사.
+    public boolean selectUserID(String id) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM ACCOUNT WHERE USER_ID = ?";
+        
+        boolean flag = false;
+        try {
+            con = pool.getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            
+            if (rs.next()) { 
+                flag = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 자원 해제
+        	pool.closeResources(con, pstmt, rs);
+        }
+        
+        return flag;
+    }
+    
+    
     // 관리자 테이블 검색 메소드 (로그인 검사)
     public boolean selectAccount(Account bean) {
         Connection con = null;

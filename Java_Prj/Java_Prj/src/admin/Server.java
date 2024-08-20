@@ -1,4 +1,4 @@
-package control;
+package admin;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -13,6 +13,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
+import control.AccountMgr;
+import control.CategoryMgr;
+import control.GuestMgr;
+import control.MenuMgr;
+import control.OrderMgr;
+import control.Order_detailMgr;
 import entity.Account;
 import entity.Call;
 import entity.Menu;
