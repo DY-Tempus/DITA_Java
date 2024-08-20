@@ -16,7 +16,6 @@ import javafx.stage.StageStyle;
 
 public class ShoppingCart {
 	
-	private Vector<Order_detail> list = new Vector<Order_detail>();
 	
 	@FXML
 	private Button closeButton; // 닫기 버튼
@@ -78,26 +77,6 @@ public class ShoppingCart {
         }
     }
 
-    // 장바구니에 주문추가.
-    public void addOrUpdateOrder(String menuName, int count, String CtgName) {
-        boolean found = false;
-        
-        for (Order_detail ord : list) {
-            if (ord.getMenu_Name().equals(menuName)) {
-                ord.setOrder_Num(ord.getOrder_Num() + count);
-                found = true;
-                break;
-            }
-        }
-        
-        if (!found) {
-            Order_detail newOrder = new Order_detail();
-            newOrder.setMenu_Name(menuName);
-            newOrder.setOrder_Num(count);
-            newOrder.setCtg_Name(CtgName);
-            list.add(newOrder);
-        }
-    }
 
 
 }

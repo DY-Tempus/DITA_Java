@@ -1,5 +1,6 @@
 package application;
 
+import entity.AppData;
 import entity.Order_detail;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import javafx.stage.StageStyle;
 public class MenuDetail {
 	
 	private String CtgName;
+	private int price;
 
     @FXML
     private Label countLabel;
@@ -47,8 +49,10 @@ public class MenuDetail {
     private int count = 1;
 
     public void setMenuDetails(String menuName, int price, Image menuImage, String CtgName) {
+    	this.price=price;
+    	this.CtgName = CtgName;
         menuNameLabel.setText(menuName + "\n" + price + "원");
-        this.CtgName = CtgName;
+        
         // 레이블이 부모 AnchorPane에서 중앙에 위치하도록 설정
         AnchorPane.setLeftAnchor(menuNameLabel, 0.0);
         AnchorPane.setRightAnchor(menuNameLabel, 0.0);
@@ -122,13 +126,31 @@ public class MenuDetail {
     @FXML
     private void handlecartButtonAction(ActionEvent event) {
         try {
+        	boolean flag=false;
+        	Order_detail od=new Order_detail();
+        	for(Order_detail it:AppData.order.getOrder_detail()) {//장바구니에 같은 이름의 상품이 존재한다면
+        		if(it.getMenu_Name().equals(menuNameLabel.getText())) {
+        			it.setOrder_Num(it.getOrder_Num()+Integer.parseInt(countLabel.getText()));
+        			flag=true;
+        			break;
+        		}
+        	}
+        	
+        	if(!flag) {//장바구니에 없다면
+        		od.setCtg_Name(CtgName);
+            	od.setMenu_Name(menuNameLabel.getText());
+            	od.setOrder_Num(Integer.parseInt(countLabel.getText()));
+            	AppData.order.setOrder_detail(od);
+        	}
+        	
+//        	for(Order_detail odd: AppData.order.getOrder_detail()) {
+//        		System.out.println(odd.toString());
+//        	}
+        	
+        	
             // ShoppingCart.fxml 로드
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ShoppingCart.fxml"));
             Parent root = loader.load();
-            
-            // Order_detail 추가.
-            ShoppingCart controller = loader.getController();
-            controller.addOrUpdateOrder(menuNameLabel.toString(), count, CtgName);
             
             Stage dialogStage = new Stage();
             dialogStage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거

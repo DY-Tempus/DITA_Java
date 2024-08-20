@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import control.Server;
 import javafx.scene.text.Font;
 
 public class Main extends Application {

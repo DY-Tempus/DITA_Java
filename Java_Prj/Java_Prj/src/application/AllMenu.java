@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import entity.AppData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +44,7 @@ public class AllMenu {
 	@FXML
 	private Button menuButton; // 각 메뉴들 버튼
 
-	private String CtgName;
+	private static String CtgName="추천메뉴";
 	
 	// 추천메뉴 버튼
     @FXML

@@ -112,9 +112,6 @@ public class Server {
 					case Protocol.order:
 						order(data);
 						break;
-					case Protocol.order_detail:
-						order_detail(data);
-						break;
 					case Protocol.call:
 						call(data);
 						break;
@@ -153,8 +150,11 @@ public class Server {
 		// 주문하기.
 		public void order(DataType data) {
 			Order order = (Order) data.obj;
+			
 			try {
 				if(orderMgr.insertOrder(order)) {
+					detailMgr.insertOrder_detail(order.getOrder_detail());
+					data.obj = null;
 					oos.writeObject(data);
 				}
 			} catch (Exception e) {

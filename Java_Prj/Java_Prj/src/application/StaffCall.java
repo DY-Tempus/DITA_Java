@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import entity.AppData;
 import entity.Call;
 import entity.DataType;
 import entity.Protocol;
@@ -46,6 +47,8 @@ public class StaffCall {
     private DataType dt;
     
     private Call call;
+    
+    boolean flag = false;
     
     // 이전 Stage를 설정하는 메서드
     public void setPreviousStage(Stage stage) {
@@ -96,14 +99,15 @@ public class StaffCall {
     private void handlerequestButtonAction(ActionEvent event) {
         try {
         	
-        	new Thread(() -> requestUpdate(selectedItemsMap)).start();
-        	
-            Parent requestRoot = FXMLLoader.load(getClass().getResource("OrderComplete.fxml"));
-            Scene requestScene = new Scene(requestRoot);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(requestScene);
-            stage.show();
-  
+        	if(requestUpdate(selectedItemsMap)) {
+
+	        Parent requestRoot = FXMLLoader.load(getClass().getResource("OrderComplete.fxml"));
+	        Scene requestScene = new Scene(requestRoot);
+	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        stage.setScene(requestScene);
+	        stage.show();
+	        
+        	}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -214,7 +218,6 @@ public class StaffCall {
     // 요청사항 전달.
     private boolean requestUpdate(Map<String, Node[]> selectedItemsMap) {
     	
-    	boolean flag = false;
     	try {
     		
     		Socket socket = new Socket(Main.SERVER_ADDRESS, Main.SERVER_PORT);
@@ -222,8 +225,9 @@ public class StaffCall {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             
             dt = new DataType();
-            dt.protocol = 5;
+            dt.protocol = Protocol.call;
         	call = new Call();
+        	call.setGuestID(AppData.guest.getGuest_ID());
         	
             // Map의 각 항목을 순회합니다.
             for (Map.Entry<String, Node[]> entry : selectedItemsMap.entrySet()) {
@@ -270,16 +274,19 @@ public class StaffCall {
             out.flush();
             
             // 서버로부터 응답 대기 및 처리
-            DataType response = (DataType) in.readObject();
-            if (response.protocol == Protocol.loginGuest) 
-            	flag = true;
+            DataType response = null;
+            while(response == null) {
+            	response = (DataType) in.readObject();
+            }
+            
+            return true;
 
             
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	
-		return flag;
+		return false;
 
     }
 }

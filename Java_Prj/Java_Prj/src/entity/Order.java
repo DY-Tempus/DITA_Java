@@ -2,12 +2,14 @@ package entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Vector;
 
 public class Order implements Serializable {
 	private int Order_No;
 	private String User_ID;
 	private String Guest_ID;
 	private Date Order_Date;
+	private Vector<Order_detail> order_detail=new Vector<Order_detail>();
 	
 	public String getUser_ID() {
 		return User_ID;
@@ -32,6 +34,12 @@ public class Order implements Serializable {
 	}
 	public void setOrder_Date(Date order_Date) {
 		Order_Date = order_Date;
+	}
+	public Vector<Order_detail> getOrder_detail() {
+		return order_detail;
+	}
+	public void setOrder_detail(Order_detail order_detail) {
+		this.order_detail.addElement(order_detail);
 	}
 	
 	

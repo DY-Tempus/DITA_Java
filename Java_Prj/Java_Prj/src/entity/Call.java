@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Call implements Serializable {
 	private String guestID;
-	
+
 	private int spoon;
 	private int chopstick;
 	private int tableware;
@@ -12,6 +12,13 @@ public class Call implements Serializable {
 	private int ice;
 	private int tissue;
 	private int others;
+	
+	public String getGuestID() {
+		return guestID;
+	}
+	public void setGuestID(String guestID) {
+		this.guestID = guestID;
+	}
 	
 	public int getSpoon() {
 		return spoon;

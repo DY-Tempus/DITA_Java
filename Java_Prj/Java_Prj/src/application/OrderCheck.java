@@ -1,7 +1,16 @@
 package application;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.List;
 
+import entity.AppData;
+import entity.DataType;
+import entity.Protocol;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +22,12 @@ import javafx.stage.Stage;
 
 public class OrderCheck {
 
+	Socket sock;
+	OutputStream os;
+	InputStream is;
+	ObjectOutputStream oos;
+	ObjectInputStream ois;
+	
     @FXML
     private Button noButton; // 아니요 버튼
 
@@ -42,6 +57,32 @@ public class OrderCheck {
     // 예 버튼
     @FXML
     private void handleyesButtonAction(ActionEvent event) {
+    	if(sock==null) {
+			try {
+				sock = new Socket(Main.SERVER_ADDRESS, Main.SERVER_PORT);
+				is=this.sock.getInputStream();
+				os=this.sock.getOutputStream();
+				oos=new ObjectOutputStream(os);
+				ois=new ObjectInputStream(is);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+    	DataType data=new DataType();
+    	data.protocol=Protocol.order;
+    	data.obj=AppData.order;
+    	try {
+			oos.writeObject(data);
+			oos.close();
+			ois.close();
+			os.close();
+			is.close();
+			sock.close();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
         try {
             // 현재 열려 있는 모든 창(Window)들 중에서 화면에 보이는 것만 선택하여 닫기
             List<Stage> openStages = Stage.getWindows().stream()
