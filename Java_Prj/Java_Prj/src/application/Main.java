@@ -22,7 +22,7 @@ public class Main extends Application {
             // 메인 창의 참조를 저장
             Main.primaryStage = primaryStage;
 			Font.loadFont(getClass().getResourceAsStream("Inter-VariableFont_opsz,wght.ttf"), 10);
-            Parent root = FXMLLoader.load(getClass().getResource("Start.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("GLogin.fxml"));
             Scene scene = new Scene(root);
             
             // 모든 Scene에 공통 CSS 파일 적용

@@ -18,7 +18,7 @@ public class Start {
     private void handleStartButtonAction(ActionEvent event) {
         try {
             // Personnel.fxml 파일 로드
-            Parent personnelRoot = FXMLLoader.load(getClass().getResource("Personnel.fxml"));
+            Parent personnelRoot = FXMLLoader.load(getClass().getResource("RecommendMenu.fxml"));
             
             // 새로운 장면(Scene) 생성
             Scene personnelScene = new Scene(personnelRoot);

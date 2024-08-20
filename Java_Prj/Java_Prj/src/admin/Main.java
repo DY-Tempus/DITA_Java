@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import entity.Account;
 import javafx.scene.text.Font;
 
 public class Main extends Application {
@@ -15,6 +16,7 @@ public class Main extends Application {
     private static Stage primaryStage; // 메인 창의 참조를 저장할 정적 변수
     public static String SERVER_ADDRESS = "113.198.238.113";
     public static int SERVER_PORT = 8003;
+    public static Account acc; 
     private Server server; // 서버 인스턴스 추가
     @Override
     public void start(Stage primaryStage) {

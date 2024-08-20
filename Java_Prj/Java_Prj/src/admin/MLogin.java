@@ -29,18 +29,17 @@ public class MLogin {
 	
 	private AccountMgr accMgr;
 	
-	private Account acc;
 	// 로그인 버튼 -> 게스트 목록 페이지로 이동 / 주석 처리된 곳 수정해야함.
 	// fxml 파일의 해당 버튼에 onAction="#이벤트 핸들러 함수명" 추가해야함.
 	@FXML
     private void handleLoginButtonAction(ActionEvent event) {
         try {
-        	acc = new Account();
-        	acc.setUser_ID(userID.getText());
-        	acc.setUser_PW(userPW.getText());
+        	Main.acc = new Account();
+        	Main.acc.setUser_ID(userID.getText());
+        	Main.acc.setUser_PW(userPW.getText());
         	accMgr = new AccountMgr();
         	
-	        	if(accMgr.selectAccount(acc)) {
+	        	if(accMgr.selectAccount(Main.acc)) {
 	        	
 		        // Personnel.fxml 파일 로드
 		        Parent MTableRoot = FXMLLoader.load(getClass().getResource("MTable.fxml"));

@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Date;
 import java.util.List;
 
 import entity.AppData;
@@ -37,7 +38,7 @@ public class OrderCheck {
     private Stage previousStage; // 이전 Stage를 저장할 변수
 
     // 이전 Stage를 설정하는 메서드
-    public void setPreviousStage(Stage stage) {
+    public void setPreviousStage(Stage stage) {	
         this.previousStage = stage;
     }
 
@@ -70,6 +71,7 @@ public class OrderCheck {
 		}
     	DataType data=new DataType();
     	data.protocol=Protocol.order;
+
     	data.obj=AppData.order;
     	try {
 			oos.writeObject(data);

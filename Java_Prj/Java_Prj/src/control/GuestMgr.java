@@ -20,6 +20,34 @@ public class GuestMgr {
 	}
 	
 	// 게스트 검색 
+    public boolean selectGuestID(String guestID) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Guest WHERE Guest_ID = ?";
+        
+        boolean flag = false;
+        try {
+            con = pool.getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, guestID);
+            rs = pstmt.executeQuery();
+            
+            if (rs.next()) { 
+                flag = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 자원 해제
+        	pool.closeResources(con, pstmt, rs);
+        }
+        
+        return flag;
+    }
+	
+	
+	// 게스트 검색 
     public boolean selectGuest(Guest bean) {
         Connection con = null;
         PreparedStatement pstmt = null;

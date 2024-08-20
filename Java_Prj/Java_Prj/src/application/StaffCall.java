@@ -101,7 +101,7 @@ public class StaffCall {
         	
         	if(requestUpdate(selectedItemsMap)) {
 
-	        Parent requestRoot = FXMLLoader.load(getClass().getResource("OrderComplete.fxml"));
+	        Parent requestRoot = FXMLLoader.load(getClass().getResource("CallComplete.fxml"));
 	        Scene requestScene = new Scene(requestRoot);
 	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	        stage.setScene(requestScene);

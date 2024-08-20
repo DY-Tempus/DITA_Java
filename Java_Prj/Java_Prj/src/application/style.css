@@ -7,3 +7,73 @@
 	-fx-font-family: "Inter-VariableFont_opsz";
 	-fx-font-weight: bold;
 }
+
+/* 시작하기 버튼 */
+.start-button {
+    -fx-background-color: #D90000;
+    -fx-font-size: 25px;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 180px;
+    -fx-text-fill: WHITE;
+}
+
+/* 마이너스, 플러스 버튼 */
+.minus-button, .plus-button{
+	-fx-background-color: #D90000;
+	-fx-font-size: 25px;
+	-fx-pref-height: 55px;
+	-fx-pref-width: 55px;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 50;
+}
+
+/* 인원 수 선택 라벨 */
+.select-label{
+	-fx-font-size: 48px; 
+	-fx-text-fill: WHITE;
+}
+
+/* 인원 수 카운트 라벨 (숫자) */
+.per-countLabel {
+    -fx-font-size: 35px;
+    -fx-text-fill: black;
+}
+
+/* Pane의 배경색 설정 */
+.pane-background-red {
+    -fx-background-color: #d90000;
+}
+
+.pane-background-black {
+    -fx-background-color: black;
+}
+
+/* 스크롤 팬 */
+.scrollpane {
+	-fx-background-color: black;
+}
+
+/* 직원 호출 버튼 */
+.button-white {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 18px;
+}
+
+.button-black {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+.button-red {
+    -fx-background-color: #d90000;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+/* Line 스타일링 */
+.line-style {
+    -fx-stroke: white;
+}
+
