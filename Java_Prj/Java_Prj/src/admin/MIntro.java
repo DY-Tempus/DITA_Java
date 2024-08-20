@@ -1,4 +1,4 @@
-package application;
+package admin;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class MTable {
+public class MIntro {
 
 	@FXML
 	private Button loginButton;
@@ -17,43 +17,42 @@ public class MTable {
 	@FXML
 	private Button signupButton;
 	
-	// 테이블 버튼 -> 주문 목록(MOrder) 페이지로 이동
-	// 각 테이블의 번호를 이용해 해당 계정의 주문 목록을 표시해야함.
+	// 로그인 버튼
 	@FXML
-    private void handleTableButtonAction(ActionEvent event) {
+    private void handleLoginButtonAction(ActionEvent event) {
         try {
-            // Personnel.fxml 파일 로드
-            Parent MOrderRoot = FXMLLoader.load(getClass().getResource("MOrder.fxml"));
+            // MLogin.fxml 파일 로드
+            Parent MLoginRoot = FXMLLoader.load(getClass().getResource("MLogin.fxml"));
             
             // 새로운 장면(Scene) 생성
-            Scene MOrderScene = new Scene(MOrderRoot);
+            Scene MLoginScene = new Scene(MLoginRoot);
             
             // 현재 스테이지 가져오기
-            Stage stage = new Stage();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             
             // 새로운 장면으로 설정
-            stage.setScene(MOrderScene);
+            stage.setScene(MLoginScene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 	
-	// 로그아웃 버튼
+	// 회원가입 버튼
 	@FXML
-    private void handleLogOutButtonAction(ActionEvent event) {
+    private void handleSignupButtonAction(ActionEvent event) {
         try {
-            // MSignup.fxml 파일 로드
-            Parent MIntroRoot = FXMLLoader.load(getClass().getResource("MIntro.fxml"));
+            // Personnel.fxml 파일 로드
+            Parent MSignupRoot = FXMLLoader.load(getClass().getResource("MSignup.fxml"));
             
             // 새로운 장면(Scene) 생성
-            Scene MIntroScene = new Scene(MIntroRoot);
+            Scene MSignupScene = new Scene(MSignupRoot);
             
             // 현재 스테이지 가져오기
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             
             // 새로운 장면으로 설정
-            stage.setScene(MIntroScene);
+            stage.setScene(MSignupScene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

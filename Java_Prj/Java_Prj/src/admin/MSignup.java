@@ -1,4 +1,4 @@
-package application;
+package admin;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

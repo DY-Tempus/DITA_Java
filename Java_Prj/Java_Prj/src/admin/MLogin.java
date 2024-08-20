@@ -1,4 +1,4 @@
-package application;
+package admin;
 
 import control.AccountMgr;
 import entity.Account;
