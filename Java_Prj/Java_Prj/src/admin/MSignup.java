@@ -19,12 +19,18 @@ import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 
 public class MSignup {
-    @FXML
-    private Button signupButton;
-    
-    @FXML
-    private Button checkButton;
-    @FXML
+	@FXML
+	private Button signupButton;
+	
+	@FXML
+	private Button backButton;
+	
+	@FXML
+	private Button checkButton;
+	
+	private Scene previousScene;
+	
+	@FXML
     private TextField userID;
     
     @FXML
@@ -42,12 +48,15 @@ public class MSignup {
     private AccountMgr accMgr;
     
     private Account acc;
-    
-    // 가입하기 버튼
-    @FXML
+	
+	public void setPreviousScene(Scene scene) {
+        this.previousScene = scene;
+    }
+	
+	// 가입하기 버튼
+	@FXML
     private void handleSignupButtonAction(ActionEvent event) {
         try {
-        	
         	if(registerAccount()) {
 	            // MIntro.fxml 파일 로드
 	            Parent MIntroRoot = FXMLLoader.load(getClass().getResource("MIntro.fxml"));
@@ -66,8 +75,21 @@ public class MSignup {
             e.printStackTrace();
         }
     }
-    
-    // 중복확인 버튼
+	
+	// 뒤로가기 버튼
+	@FXML
+    private void handleBackButtonAction(ActionEvent event) {
+        if (previousScene != null) {
+            // 현재 스테이지 가져오기
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // 이전 장면으로 설정
+            stage.setScene(previousScene);
+            stage.show();
+        }
+    }
+	
+	// 중복확인 버튼
     @FXML
     private void handleDuplicateCheckButtonAction(ActionEvent event) {
         String Checkid = userID.getText();
@@ -171,6 +193,6 @@ public class MSignup {
         acc.setUser_Branch(userBranch.getText());
         acc.setUser_Address(userAddress.getText());
     }
-
-
+    
 }
+

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 음료 및 주류 페이지 -->
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -7,44 +9,24 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AllMenu">
+<Pane stylesheets="@Style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AllMenu">
    <children>
-      <Pane layoutX="-1.0" prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #d90000;">
+      <Pane layoutX="-1.0" prefHeight="550.0" prefWidth="200.0" styleClass="pane-background-red">
          <children>
-            <Button fx:id="callButton" onAction="#handlecallButtonAction" layoutX="30.0" layoutY="475.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: white;" text="직원 호출">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
+            <Button fx:id="callButton" layoutX="30.0" layoutY="475.0" prefHeight="50.0" prefWidth="140.0" styleClass="button-white" onAction="#handlecallButtonAction" text="직원 호출" />
             <ImageView fitHeight="95.0" fitWidth="183.0" layoutX="19.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/logo_black.png" />
                </image>
             </ImageView>
-            <Button layoutX="23.0" onAction="#handlerecommendButtonAction" layoutY="114.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="177.0" style="-fx-background-color: D90000;" text="추천 메뉴   " textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="mealButton" onAction="#handlemealButtonAction" layoutX="25.0" layoutY="184.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" style="-fx-background-color: #D90000;" text="식사   " textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="sideButton" onAction="#handlesideButtonAction" layoutX="25.0" layoutY="254.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" style="-fx-background-color: #D90000;" text="사이드   " textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="drinkButton" onAction="#handledrinkButtonAction" layoutX="25.0" layoutY="324.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="175.0" style="-fx-background-color: black;" text="음료 및 주류   " textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
+            <Button fx:id="recommendButton" layoutX="25.0" layoutY="114.0" prefHeight="45.0" prefWidth="175.0" styleClass="button-red" onAction="#handlerecommendButtonAction" text="추천 메뉴   " />
+            <Button fx:id="mealButton" layoutX="25.0" layoutY="184.0" prefHeight="45.0" prefWidth="175.0" styleClass="button-red" onAction="#handlemealButtonAction" text="식사   " />
+            <Button fx:id="sideButton" layoutX="25.0" layoutY="254.0" prefHeight="45.0" prefWidth="175.0" styleClass="button-red" onAction="#handlesideButtonAction" text="사이드   " />
+            <Button fx:id="drinkButton" layoutX="25.0" layoutY="324.0" prefHeight="45.0" prefWidth="175.0" styleClass="button-black" onAction="#handledrinkButtonAction" text="음료 및 주류   " />
          </children></Pane>
       <Pane layoutX="200.0" prefHeight="450.0" prefWidth="600.0">
          <children>
-            <Button onMouseClicked="#handlemenuButtonClick" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" textFill="WHITE">
+            <Button onMouseClicked="#handlemenuButtonClick" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="button-black">
                <graphic>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -53,7 +35,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button onMouseClicked="#handlemenuButtonClick" layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" textFill="WHITE">
+            <Button onMouseClicked="#handlemenuButtonClick" layoutX="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="button-black">
                <graphic>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,7 +44,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button onMouseClicked="#handlemenuButtonClick" layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" textFill="WHITE">
+            <Button onMouseClicked="#handlemenuButtonClick" layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="button-black">
                <graphic>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -71,7 +53,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button onMouseClicked="#handlemenuButtonClick" layoutY="225.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" textFill="WHITE">
+            <Button onMouseClicked="#handlemenuButtonClick" layoutY="225.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="button-black">
                <graphic>
                   <ImageView fitHeight="200.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -80,7 +62,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button onMouseClicked="#handlemenuButtonClick" layoutX="200.0" layoutY="225.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" textFill="WHITE">
+            <Button onMouseClicked="#handlemenuButtonClick" layoutX="200.0" layoutY="225.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="button-black">
                <graphic>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -89,7 +71,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button onMouseClicked="#handlemenuButtonClick" layoutX="400.0" layoutY="228.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" textFill="WHITE">
+            <Button onMouseClicked="#handlemenuButtonClick" layoutX="400.0" layoutY="228.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="button-black">
                <graphic>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -102,18 +84,9 @@
       </Pane>
       <Pane layoutX="199.0" layoutY="462.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="88.0" prefWidth="601.0">
          <children>
-            <Button fx:id="detailsButton" onAction="#handledetailsButtonAction" layoutX="271.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: #D90000;" text="주문 내역" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="cartButton" onAction="#handlecartButtonAction" layoutX="434.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: #D90000;" text="장바구니" textFill="WHITE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
+            <Button fx:id="cartButton" layoutX="434.0" layoutY="19.0" prefHeight="50.0" prefWidth="140.0" styleClass="button-red" onAction="#handlecartButtonAction" text="장바구니" />
          </children>
       </Pane>
-      <Line endX="800.0" endY="450.0" fill="WHITE" layoutX="-1.0" layoutY="11.0" startX="200.0" startY="450.0" stroke="WHITE" />
+      <Line endX="800.0" endY="450.0" layoutX="-1.0" layoutY="11.0" startX="200.0" startY="450.0" styleClass="line-style" />
    </children>
 </Pane>

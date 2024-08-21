@@ -19,27 +19,52 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class OrderCheck {
 
-	Socket sock;
-	OutputStream os;
-	InputStream is;
-	ObjectOutputStream oos;
-	ObjectInputStream ois;
-	
     @FXML
     private Button noButton; // 아니요 버튼
 
     @FXML
     private Button yesButton; // 예 버튼
     
+    @FXML
+    private Label menuNameLabel; // 메뉴 이름 라벨
+
+    @FXML
+    private Label countLabel; // 수량 라벨
+
+    @FXML
+    private Label totalPriceLabel; // 메뉴별 총 금액 라벨
+    
+    @FXML
+    private Label ALLtotalPriceLabel; // 모든 금액을 합친 금액 라벨
+    
     private Stage previousStage; // 이전 Stage를 저장할 변수
+    private int allTotalPrice = 0; // 모든 메뉴의 총 금액을 저장할 변수
+    
+	Socket sock;
+	OutputStream os;
+	InputStream is;
+	ObjectOutputStream oos;
+	ObjectInputStream ois;
 
     // 이전 Stage를 설정하는 메서드
-    public void setPreviousStage(Stage stage) {	
+    public void setPreviousStage(Stage stage) {
         this.previousStage = stage;
+    }
+
+    // 장바구니에서 데이터를 받아 설정하는 메서드
+    public void setOrderDetails(String menuName, int count, int totalPrice) {
+        menuNameLabel.setText(menuName);
+        countLabel.setText(String.valueOf(count + "개"));
+        totalPriceLabel.setText(String.format("%,d원", totalPrice));
+        // 모든 메뉴의 총 금액에 이번 메뉴의 총 금액을 더함
+        allTotalPrice += totalPrice;
+        // 합산한 총 금액을 ALLtotalPriceLabel에 표시
+        ALLtotalPriceLabel.setText(String.format("%,d원", allTotalPrice));
     }
 
     // 아니요 버튼
@@ -58,6 +83,7 @@ public class OrderCheck {
     // 예 버튼
     @FXML
     private void handleyesButtonAction(ActionEvent event) {
+    	
     	if(sock==null) {
 			try {
 				sock = new Socket(Main.SERVER_ADDRESS, Main.SERVER_PORT);
@@ -97,14 +123,14 @@ public class OrderCheck {
                 stage.close();
             }
 
-            // OrderComplete.fxml 로드 및 중앙에 위치시키기
             Parent requestRoot = FXMLLoader.load(getClass().getResource("OrderComplete.fxml"));
             Scene requestScene = new Scene(requestRoot);
-
+                    
             // 새로운 Stage 생성
             Stage orderCompleteStage = new Stage();
             orderCompleteStage.setScene(requestScene);
-
+            orderCompleteStage.setTitle("E-ORDER");
+            
             // 화면 중앙에 위치시키기
             orderCompleteStage.setOnShown(e -> {
                 Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -15,7 +15,7 @@ public class MTable {
 	private Button logOutButton;
 	
 	@FXML
-	private Button createButton;
+	private Button mgButton;
 	
 	@FXML
 	private Button salesButton;
@@ -44,7 +44,7 @@ public class MTable {
     private void handleTableButtonAction(ActionEvent event) {
         try {
             // Personnel.fxml 파일 로드
-            Parent MOrderRoot = FXMLLoader.load(getClass().getResource("MOrder_detail.fxml"));
+            Parent MOrderRoot = FXMLLoader.load(getClass().getResource("MOrder.fxml"));
             
             // 새로운 장면(Scene) 생성
             Scene MOrderScene = new Scene(MOrderRoot);
@@ -53,9 +53,22 @@ public class MTable {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Stage stage = new Stage();
             
-            // 현재 스테이지와 동일한 위치로 설정
-            stage.setX(currentStage.getX());
-            stage.setY(currentStage.getY());
+            // 화면 중앙에 위치시키기
+            stage.setOnShown(e -> {
+                double stageWidth = stage.getWidth();
+                double stageHeight = stage.getHeight();
+                double currentStageX = currentStage.getX();
+                double currentStageY = currentStage.getY();
+                double currentStageWidth = currentStage.getWidth();
+                double currentStageHeight = currentStage.getHeight();
+                
+                // 중앙 위치 계산
+                double centerXPosition = currentStageX + (currentStageWidth - stageWidth) / 2;
+                double centerYPosition = currentStageY + (currentStageHeight - stageHeight) / 2;
+
+                stage.setX(centerXPosition);
+                stage.setY(centerYPosition);
+            });
             
             // 새로운 장면으로 설정
             stage.setScene(MOrderScene);
@@ -86,22 +99,30 @@ public class MTable {
         }
     }
 	
-	// 계정 생성 버튼
+	// 계정 관리 버튼
 	@FXML
-    private void handleCreateButtonAction(ActionEvent event) {
+    private void handleMgButtonAction(ActionEvent event) {
 		try {
-            // MIntro.fxml 파일 로드
-            Parent MIntroRoot = FXMLLoader.load(getClass().getResource("GSignup.fxml"));
-            
-            // 새로운 장면(Scene) 생성
-            Scene MIntroScene = new Scene(MIntroRoot);
-            
-            // 현재 스테이지 가져오기
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // 새로운 장면으로 설정
-            stage.setScene(MIntroScene);
-            stage.show();
+			// 현재 장면(Scene) 가져오기
+        	Scene currentScene = ((Node) event.getSource()).getScene();
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("Management.fxml"));
+        	Parent ManagementRoot = loader.load();
+
+        	// 컨트롤러 가져오기
+        	Management signupController = loader.getController();
+
+        	// 이전 장면을 컨트롤러에 전달
+        	signupController.setPreviousScene(currentScene);
+
+        	// 새로운 장면(Scene) 생성
+        	Scene managementScene = new Scene(ManagementRoot);
+
+        	// 현재 스테이지 가져오기
+        	Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        	// 새로운 장면으로 설정
+        	stage.setScene(managementScene);
+        	stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,18 +132,26 @@ public class MTable {
 	@FXML
     private void handleSalesButtonAction(ActionEvent event) {
 		try {
-            // MIntro.fxml 파일 로드
-            Parent MIntroRoot = FXMLLoader.load(getClass().getResource("TotalSales.fxml"));
-            
-            // 새로운 장면(Scene) 생성
-            Scene MIntroScene = new Scene(MIntroRoot);
-            
-            // 현재 스테이지 가져오기
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // 새로운 장면으로 설정
-            stage.setScene(MIntroScene);
-            stage.show();
+			// 현재 장면(Scene) 가져오기
+        	Scene currentScene = ((Node) event.getSource()).getScene();
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("TotalSales.fxml"));
+        	Parent TotalSalesRoot = loader.load();
+
+        	// 컨트롤러 가져오기
+        	TotalSales totalSalesController = loader.getController();
+
+        	// 이전 장면을 컨트롤러에 전달
+        	totalSalesController.setPreviousScene(currentScene);
+
+        	// 새로운 장면(Scene) 생성
+        	Scene totalSalesScene = new Scene(TotalSalesRoot);
+
+        	// 현재 스테이지 가져오기
+        	Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        	// 새로운 장면으로 설정
+        	stage.setScene(totalSalesScene);
+        	stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

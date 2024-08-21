@@ -21,7 +21,16 @@ import javafx.stage.Stage;
 public class GSignup {
 	
 	@FXML
-	private Button signupButton;
+	private Button signupButton; // 가입하기 버튼
+	
+	@FXML
+	private Button backButton; // 뒤로가기 버튼
+	
+	private Scene previousScene;
+	
+	public void setPreviousScene(Scene scene) {
+        this.previousScene = scene;
+    }
 	
 	@FXML 
 	private TextField guestID;
@@ -50,6 +59,19 @@ public class GSignup {
             e.printStackTrace();
         }
 	}
+	
+	// 뒤로가기 버튼
+	@FXML
+    private void handleBackButtonAction(ActionEvent event) {
+        if (previousScene != null) {
+            // 현재 스테이지 가져오기
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // 이전 장면으로 설정
+            stage.setScene(previousScene);
+            stage.show();
+        }
+    }
 	
 	private boolean registerGuest() {
 		gstMgr = new GuestMgr();

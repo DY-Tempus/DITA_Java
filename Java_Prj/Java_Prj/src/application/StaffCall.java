@@ -268,8 +268,8 @@ public class StaffCall {
                 }
                 
             }
-            
-            dt.obj = call;
+            AppData.order.setCall(call);
+            dt.obj = AppData.order;
             out.writeObject(dt);
             out.flush();
             

@@ -25,6 +25,10 @@ import entity.Menu;
 import entity.Order;
 import entity.Order_detail;
 import entity.Protocol;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import entity.DataType;
 import entity.Guest;
 
@@ -162,22 +166,36 @@ public class Server {
 			}
 		}
 		
+		// 상세 주문 정보 받기.
 		public void order_detail(DataType data) {
 			Vector <Order_detail> detail = (Vector <Order_detail>) data.obj;
 			try {
 				if(detailMgr.insertOrder_detail(detail)) {
 					oos.writeObject(data);
+					
+					/*
+	                FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/MOrderDetail.fxml"));
+	                Parent root = loader.load();
+	                MOrderDetail controller = loader.getController();
+	                controller.updateOrderDetails(detail);
+	                Stage newStage = new Stage();
+	                newStage.setScene(new Scene(root));
+	                newStage.show();
+	                */
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
+		// 요청 사항 받기.
 		public void call(DataType data) {
 			Call call = (Call) data.obj;
 			try {
 				System.out.println("요청사항이 들어왔습니다.");
 				oos.writeObject(data);
+				
+                
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

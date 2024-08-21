@@ -1,7 +1,8 @@
 package control;
 
+import entity.Account;
 import entity.Order;
-
+import entity.Total_order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -126,18 +127,59 @@ public class OrderMgr {
 		return bean;
 	}
 	
+	public Vector<Total_order> selectTotalOrder(String id) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = null;
+	    
+	    Vector<Total_order> list = new Vector<Total_order>();
+	    
+	    try {
+	        con = pool.getConnection();
+	        sql = "SELECT orders.order_no AS \"테이블 번호\", TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS') AS \"주문 시간\", "
+	            + "LISTAGG(order_detail.menu_name, ', ') WITHIN GROUP (ORDER BY order_detail.menu_name) AS \"주문 내역\", "
+	            + "SUM(order_detail.order_num * menu.menu_price) AS \"금액\" "
+	            + "FROM ORDER_DETAIL "
+	            + "JOIN ORDERS ON order_detail.order_no = orders.order_no "
+	            + "JOIN MENU ON menu.menu_name = order_detail.menu_name "
+	            + "WHERE orders.order_date < SYSDATE AND orders.user_id = ? "
+	            + "GROUP BY orders.order_no, TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS')";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, id);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            Total_order order = new Total_order();
+	            order.setOrder_No(rs.getInt("테이블 번호"));
+	            order.setMenu_list(rs.getString("주문 내역"));
+	            order.setOrder_Date(rs.getString("주문 시간")); // 변경됨
+	            order.setPrice(rs.getInt("금액")); // 확인 필요: BigDecimal 또는 Long을 사용할 수 있음
+	            list.add(order);
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.closeResources(con, pstmt, rs);
+	    }
+	    return list;
+	}
+
+	
 	public static void main(String[] args) {
 		
 		// 주문 삽입, 삭제 예시.
 		Order bean = new Order();
 		OrderMgr mgr = new OrderMgr();
 		
-		bean.setGuest_ID("guest1");
-		bean.setUser_ID("user1");
-		Date today = new Date();
-
-		if(mgr.insertOrder(bean)) { System.out.println("주문이 완료되었습니다."); }
 		
+		Vector<Total_order> list = mgr.selectTotalOrder("user1");
+		
+		for (Total_order total_order : list) {
+			System.out.println(total_order.getOrder_No() + " : " + total_order.getMenu_list() + " : " + total_order.getOrder_Date()
+			 + " : " + total_order.getPrice());
+		}
 		//if(mgr.deleteOrder(bean)) { System.out.println("주문이 삭제되었습니다."); }
 		 
 	}

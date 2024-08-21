@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuDetail">
+<AnchorPane stylesheets="@Style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuDetail">
    <children>
       <ImageView fx:id="menuImageView" fitHeight="240.0" fitWidth="215.0" layoutX="46.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="closeButton" layoutX="63.0" layoutY="320.0" mnemonicParsing="false" onAction="#handlecloseButtonAction" prefHeight="46.0" prefWidth="131.0" style="-fx-background-color: D90000;" text="닫기" textFill="WHITE">
@@ -22,25 +21,6 @@
       </Button>
       <AnchorPane layoutX="279.0" layoutY="15.0" prefHeight="292.0" prefWidth="306.0">
          <children>
-            <Group layoutX="63.0" layoutY="199.0">
-               <children>
-                  <Button fx:id="minusButton" layoutY="8.0" mnemonicParsing="false" onAction="#handleMinusButtonAction" prefHeight="37.0" prefWidth="38.0" style="-fx-background-color: gray; -fx-background-radius: 50;" styleClass="minus-button" text="-">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="countLabel" layoutX="75.0" prefHeight="51.0" prefWidth="42.0" text="1">
-                  	<font>
-                        <Font name="System Bold" size="35.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="plusButton" layoutX="126.0" layoutY="8.0" mnemonicParsing="false" onAction="#handlePlusButtonAction" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: gray; -fx-background-radius: 50;" styleClass="plus-button" text="+">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-               </children>
-            </Group>
             <Label fx:id="menuNameLabel" alignment="CENTER" layoutX="149.0" layoutY="54.0" text="." textAlignment="CENTER">
                <font>
                   <Font size="30.0" />
@@ -50,6 +30,25 @@
             	<AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
             	<AnchorPane.bottomAnchor>0.0</AnchorPane.bottomAnchor>
             </Label>
+            <AnchorPane layoutX="63.0" layoutY="199.0">
+               <children>
+                  <Button fx:id="minusButton" layoutY="8.0" mnemonicParsing="false" onAction="#handleMinusButtonAction" prefHeight="37.0" prefWidth="38.0" style="-fx-background-color: gray; -fx-background-radius: 50;" text="-">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="countLabel" alignment="CENTER" layoutX="65.0" prefHeight="51.0" prefWidth="42.0" textAlignment="CENTER">
+                  	<font>
+                        <Font name="System Bold" size="35.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="plusButton" layoutX="126.0" layoutY="8.0" mnemonicParsing="false" onAction="#handlePlusButtonAction" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: gray; -fx-background-radius: 50;" text="+">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

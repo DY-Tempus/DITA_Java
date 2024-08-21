@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 관리자 로그인 페이지 -->
+<!-- 테이블 목록 페이지 -->
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@Style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.MTable">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.MTable">
    <children>
       <ImageView fitHeight="110.0" fitWidth="210.0" layoutX="20.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -30,7 +30,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="createButton" layoutX="212.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleCreateButtonAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: black;" text="계정 생성" textFill="WHITE">
+      <Button fx:id="mgButton" layoutX="212.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleMgButtonAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: black;" text="계정 관리" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>

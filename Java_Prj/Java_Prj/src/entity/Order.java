@@ -10,7 +10,18 @@ public class Order implements Serializable {
 	private String Guest_ID;
 	private Date Order_Date;
 	private Vector<Order_detail> order_detail=new Vector<Order_detail>();
+	private Call call;
 	
+	
+	public Call getCall() {
+		return call;
+	}
+	public void setCall(Call call) {
+		this.call = call;
+	}
+	public void setOrder_detail(Vector<Order_detail> order_detail) {
+		this.order_detail = order_detail;
+	}
 	public String getUser_ID() {
 		return User_ID;
 	}

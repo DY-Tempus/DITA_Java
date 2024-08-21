@@ -52,18 +52,18 @@ public class GuestMgr {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Guest WHERE Guest_ID = ? AND USER_ID = ?";
+        String sql = "SELECT * FROM Guest WHERE Guest_ID = ?";
         
         boolean flag = false;
         try {
             con = pool.getConnection();
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, bean.getGuest_ID());
-            pstmt.setString(2, bean.getUser_ID());
             rs = pstmt.executeQuery();
             
             if (rs.next()) { 
                 flag = true;
+                bean.setUser_ID(rs.getString("User_ID"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -134,6 +134,7 @@ public class GuestMgr {
 		}
 		return b;
 	}
+	
 	//게스트 삭제
 	public boolean deleteGuest(Guest g) {
 		boolean b=false;

@@ -42,18 +42,27 @@ public class MIntro {
 	@FXML
     private void handleSignupButtonAction(ActionEvent event) {
         try {
-            // Personnel.fxml 파일 로드
-            Parent MSignupRoot = FXMLLoader.load(getClass().getResource("MSignup.fxml"));
-            
-            // 새로운 장면(Scene) 생성
-            Scene MSignupScene = new Scene(MSignupRoot);
-            
-            // 현재 스테이지 가져오기
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // 새로운 장면으로 설정
-            stage.setScene(MSignupScene);
-            stage.show();
+        	// 현재 장면(Scene) 가져오기
+        	Scene currentScene = ((Node) event.getSource()).getScene();
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("MSignup.fxml"));
+        	Parent MSignupRoot = loader.load();
+
+        	// 컨트롤러 가져오기
+        	MSignup signupController = loader.getController();
+
+        	// 이전 장면을 컨트롤러에 전달
+        	signupController.setPreviousScene(currentScene);
+
+        	// 새로운 장면(Scene) 생성
+        	Scene signupScene = new Scene(MSignupRoot);
+
+        	// 현재 스테이지 가져오기
+        	Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        	// 새로운 장면으로 설정
+        	stage.setScene(signupScene);
+        	stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

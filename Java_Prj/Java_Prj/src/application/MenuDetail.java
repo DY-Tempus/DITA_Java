@@ -148,36 +148,24 @@ public class MenuDetail {
 //        	}
         	
         	
-            // ShoppingCart.fxml 로드
+        	// ShoppingCart.fxml 로드
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ShoppingCart.fxml"));
             Parent root = loader.load();
+
+            // ShoppingCart 컨트롤러 가져오기
+            ShoppingCart shoppingCartController = loader.getController();
+
+            // 메뉴 이름과 가격, 현재 수량 전달
+            String menuName = menuNameLabel.getText().split("\n")[0]; // 메뉴 이름만 추출
+            int price = Integer.parseInt(menuNameLabel.getText().split("\n")[1].replace("원", "").replace(",", "")); // 가격만 추출
+            int currentCount = Integer.parseInt(countLabel.getText()); // 현재 수량을 그대로 전달
+
+            // 장바구니에 추가
+            shoppingCartController.addMenuItem(menuName, price, currentCount);
             
-            Stage dialogStage = new Stage();
-            dialogStage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
-
-            // Scene 설정
-            Scene scene = new Scene(root);
-            dialogStage.setScene(scene);
-
-            // 메인 창의 Stage 가져오기
-            Stage mainStage = Main.getPrimaryStage();
-
-            // 팝업 창을 먼저 표시하여 크기를 결정
-            dialogStage.show();
-
-            // 우측 하단 모서리에 맞추기 (미세 조정 포함)
-            double dialogStageWidth = dialogStage.getWidth();
-            double dialogStageHeight = dialogStage.getHeight();
-            double xOffset = -8;  // X축으로 이동할 픽셀
-            double yOffset = -8;  // Y축으로 이동할 픽셀
-
-            // 메인 창의 우측 하단 모서리에 맞추기
-            dialogStage.setX(mainStage.getX() + mainStage.getWidth() - dialogStageWidth + xOffset);
-            dialogStage.setY(mainStage.getY() + mainStage.getHeight() - dialogStageHeight + yOffset);
-
-            // 현재 창 닫기
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
+            // MenuDetail 창 닫기
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
 
         } catch (Exception e) {
             e.printStackTrace();

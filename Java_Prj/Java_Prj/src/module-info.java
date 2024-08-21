@@ -3,6 +3,7 @@ module JavaFX_Base {
 	requires javafx.fxml;
 	requires javafx.swing;
 	requires java.sql;
+	requires javafx.graphics;
 	
 	opens application to javafx.graphics, javafx.fxml;
 	
