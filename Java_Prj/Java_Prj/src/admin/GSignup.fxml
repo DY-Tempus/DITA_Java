@@ -46,5 +46,14 @@
             <Font size="25.0" />
          </font>
       </Button>
+      <Button fx:id="backButton" layoutX="41.0" layoutY="468.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleBackButtonAction" prefHeight="50.0" prefWidth="50.0">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

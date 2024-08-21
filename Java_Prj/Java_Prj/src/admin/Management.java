@@ -1,5 +1,9 @@
 package admin;
 
+import entity.Order;
+import entity.Total_order;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +24,8 @@ public class Management {
 	private Button backButton; // 뒤로가기 버튼
 	
 	private Scene previousScene;
+	
+    private ObservableList<Order> list = FXCollections.observableArrayList();
 	
 	public void setPreviousScene(Scene scene) {
         this.previousScene = scene;

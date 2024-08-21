@@ -20,11 +20,14 @@ import control.MenuMgr;
 import control.OrderMgr;
 import control.Order_detailMgr;
 import entity.Account;
+import entity.AppData;
 import entity.Call;
 import entity.Menu;
 import entity.Order;
 import entity.Order_detail;
 import entity.Protocol;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -157,9 +160,13 @@ public class Server {
 		
 			try {
 				if(orderMgr.insertOrder(order)) {
-					data.obj = null;
 					oos.writeObject(data);
 					System.out.println("주문이 들어왔습니다.");
+					
+					AppData.orderq.add(order);
+                    // JavaFX UI 작업을 애플리케이션 스레드에서 수행하도록 수정
+                    Platform.runLater(() -> createNewWindow());
+					
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -180,6 +187,26 @@ public class Server {
 				e.printStackTrace();
 			}
 		}
+		
+		@FXML
+		   private void createNewWindow() {
+		      try {
+		         // fxml 파일 로드
+		         Parent MDetailRoot = FXMLLoader.load(getClass().getResource("MOrder_detail.fxml"));
+
+		         // 새로운 장면(Scene) 생성
+		         Scene MDetailScene = new Scene(MDetailRoot);
+
+		         // 새로운 스테이지 생성
+		         Stage stage = new Stage();
+
+		         // 새로운 장면으로 설정
+		         stage.setScene(MDetailScene);
+		         stage.show();
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      }
+		   }
 
 		
 	}//--client

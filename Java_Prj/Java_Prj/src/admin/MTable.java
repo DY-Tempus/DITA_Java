@@ -44,7 +44,7 @@ public class MTable {
     private void handleTableButtonAction(ActionEvent event) {
         try {
             // Personnel.fxml 파일 로드
-            Parent MOrderRoot = FXMLLoader.load(getClass().getResource("MOrder.fxml"));
+            Parent MOrderRoot = FXMLLoader.load(getClass().getResource("MOrder_detail.fxml"));
             
             // 새로운 장면(Scene) 생성
             Scene MOrderScene = new Scene(MOrderRoot);
@@ -156,4 +156,6 @@ public class MTable {
             e.printStackTrace();
         }
 	}
+	
+
 }
