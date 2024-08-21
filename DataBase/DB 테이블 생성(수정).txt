@@ -1,27 +1,27 @@
 /* 테이블 생성 */
 CREATE TABLE Account (
-	User_ID VARCHAR2(20) PRIMARY KEY,
-	User_PW VARCHAR2(20) NOT NULL,
-	User_Branch VARCHAR2(20) NOT NULL,
-	User_Address VARCHAR2(20) NOT NULL
+	User_ID VARCHAR2(30) PRIMARY KEY,
+	User_PW VARCHAR2(30) NOT NULL,
+	User_Branch VARCHAR2(30) NOT NULL,
+	User_Address VARCHAR2(30) NOT NULL
 );
 
 CREATE TABLE Guest (
-    Guest_ID VARCHAR2(20),
-    User_ID VARCHAR2(20),
+    Guest_ID VARCHAR2(30),
+    User_ID VARCHAR2(30),
     PRIMARY KEY (Guest_ID, User_ID),
     CONSTRAINT Guest_FK FOREIGN KEY (User_ID) REFERENCES Account(User_ID)
 );
 
 CREATE TABLE Category (
-	Ctg_Name VARCHAR2(20) PRIMARY KEY
+	Ctg_Name VARCHAR2(80) PRIMARY KEY
 	
 );
 
 
 CREATE TABLE Menu (
-	Ctg_Name VARCHAR2(20),
-	Menu_Name VARCHAR2(20),
+	Ctg_Name VARCHAR2(80),
+	Menu_Name VARCHAR2(200),
 	Menu_Price NUMBER NOT NULL,
 	PRIMARY KEY (Menu_Name, Ctg_Name),
 	
@@ -31,8 +31,8 @@ CREATE TABLE Menu (
 /* Order는 예약어로 사용 불가.*/
 CREATE TABLE Orders(
 	Order_No NUMBER,
-    	User_ID VARCHAR2(20),
-	Guest_ID VARCHAR2(20),
+    	User_ID VARCHAR2(30),
+	Guest_ID VARCHAR2(30),
 	Order_Date DATE NOT NULL, 
 	
 	PRIMARY KEY(Order_No),
@@ -42,8 +42,8 @@ CREATE TABLE Orders(
 
 CREATE TABLE Order_detail(
 	Order_No NUMBER,
-	Menu_Name VARCHAR2(20),
-    	Ctg_Name VARCHAR2(20),
+	Menu_Name VARCHAR2(200),
+    	Ctg_Name VARCHAR2(80),
 	Order_Num NUMBER NOT NULL,
 	PRIMARY KEY (Order_No, Menu_Name),
 	
