@@ -13,7 +13,7 @@ import javafx.scene.text.Font;
 public class Main extends Application {
     
     private static Stage primaryStage; // 메인 창의 참조를 저장할 정적 변수
-    public static String SERVER_ADDRESS = "113.198.238.113";
+    public static String SERVER_ADDRESS = "localhost";
     public static int SERVER_PORT = 8003;
     
     @Override

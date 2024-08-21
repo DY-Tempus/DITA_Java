@@ -2,9 +2,11 @@ package admin;
 
 import java.util.Vector;
 
-import control.OrderMgr;
 import entity.AppData;
 import entity.Order;
+import entity.OrderViewItem;
+import entity.Order_detail;
+import entity.Total_order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,44 +18,50 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+
 public class WindowController {
 
     @FXML
     private Label title;
-    
+
     @FXML
-    private TableView<Order> orderView;
-    
+    private TableView<OrderViewItem> orderView;
+
     @FXML
-    private TableColumn<Order, String> tblCol;
-    
+    private TableColumn<OrderViewItem, String> tblCol;  // Guest_ID
     @FXML
-    private TableColumn<Order, String> menuCol;
-    
+    private TableColumn<OrderViewItem, String> menuCol; // Menu_Name
     @FXML
-    private TableColumn<Order, Integer> quanCol;
-    
+    private TableColumn<OrderViewItem, Integer> quanCol; // Order_Num
+
     @FXML
     private Button clearBtn;
-    
+
     @FXML
     private Button checkBtn;
-    
-    private ObservableList<Order> list = FXCollections.observableArrayList();
-    
+
+    private ObservableList<OrderViewItem> list = FXCollections.observableArrayList();
+
     @FXML
     private void initialize() {
-        tblCol.setCellValueFactory(new PropertyValueFactory<>("tblno"));
-        menuCol.setCellValueFactory(new PropertyValueFactory<>("menu"));
-        quanCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+    	tblCol.setCellValueFactory(new PropertyValueFactory<>("guestId"));
+    	menuCol.setCellValueFactory(new PropertyValueFactory<>("menuName"));
+    	quanCol.setCellValueFactory(new PropertyValueFactory<>("orderNum"));
         
-        orderView.setItems(list);
         updateOrderList();
+        orderView.setItems(list);
     }
-    
+
     private void updateOrderList() {
+    
+        Vector<OrderViewItem> orview = new Vector<OrderViewItem>();
+        for (Order order : AppData.orderq) {
+            for (Order_detail detail : order.getOrder_detail()) {
+            	orview.add(new OrderViewItem(order.getGuest_ID(), detail.getMenu_Name(), detail.getOrder_Num()));
+            }
+        }
         list.clear();
-        list.addAll(AppData.orderq);
+        list.addAll(orview);
     }
 
     @FXML
@@ -61,7 +69,7 @@ public class WindowController {
         Stage stage = (Stage) checkBtn.getScene().getWindow();
         stage.close();
     }
-    
+
     @FXML
     private void handleClearButtonAction(ActionEvent event) {
         list.clear();  // Clear the list of orders

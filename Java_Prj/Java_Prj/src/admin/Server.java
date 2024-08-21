@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import control.AccountMgr;
@@ -88,7 +90,7 @@ public class Server {
 	}
 	
 	//내부클래스 client
-	class Client extends Thread{
+	class Client extends Thread {
 		Socket sock;
 		ObjectOutputStream oos;
 		ObjectInputStream ois;
@@ -180,9 +182,16 @@ public class Server {
 			Call call = (Call) data.obj;
 			try {
 				System.out.println("요청사항이 들어왔습니다.");
-				oos.writeObject(data);
 				
-                
+				Order ord = new Order();
+				ord.setGuest_ID(call.getGuestID());
+				processOrder(ord, call);
+				
+				AppData.orderq.add(ord);
+				
+				// JavaFX UI 작업을 애플리케이션 스레드에서 수행하도록 수정
+                Platform.runLater(() -> createNewWindow());
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -207,6 +216,41 @@ public class Server {
 		         e.printStackTrace();
 		      }
 		   }
+		
+		public void processOrder(Order ord, Call call) {
+	        // 메소드 내부에 itemMenuMap을 정의하고 초기화합니다.
+	        Map<String, String> itemMenuMap = new HashMap<>();
+	        itemMenuMap.put("spoon", "숟가락");
+	        itemMenuMap.put("chopstick", "젓가락");
+	        itemMenuMap.put("tableware", "유아 식기");
+	        itemMenuMap.put("water", "물");
+	        itemMenuMap.put("ice", "얼음");
+	        itemMenuMap.put("tissue", "물티슈");
+	        itemMenuMap.put("others", "기타");
+	        
+	        // 항목 및 수량을 매핑합니다.
+	        Map<String, Integer> itemCountMap = new HashMap<>();
+	        itemCountMap.put("spoon", call.getSpoon());
+	        itemCountMap.put("chopstick", call.getChopstick());
+	        itemCountMap.put("tableware", call.getTableware());
+	        itemCountMap.put("water", call.getWater());
+	        itemCountMap.put("ice", call.getIce());
+	        itemCountMap.put("tissue", call.getTissue());
+	        itemCountMap.put("others", call.getOthers());
+	        
+	        // 항목과 수량을 순회하며 처리합니다.
+	        for (Map.Entry<String, Integer> entry : itemCountMap.entrySet()) {
+	            String itemType = entry.getKey();
+	            int itemCount = entry.getValue();
+	            
+	            if (itemCount > 0) {
+	                Order_detail ordetail = new Order_detail();
+	                ordetail.setMenu_Name(itemMenuMap.get(itemType));
+	                ordetail.setOrder_Num(itemCount);
+	                ord.setOrder_detail(ordetail);
+	            }
+	        }
+	    }
 
 		
 	}//--client

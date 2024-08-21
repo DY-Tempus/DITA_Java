@@ -41,6 +41,7 @@ public class StaffCall {
 
     private Stage previousStage;
     private int currentItemYPosition = 0; // 초기 Y 위치 조정
+    
     // 각 버튼에 대해 생성된 항목을 추적하기 위한 Map
     private Map<String, Node[]> selectedItemsMap = new HashMap<>();
     
@@ -268,25 +269,16 @@ public class StaffCall {
                 }
                 
             }
-            AppData.order.setCall(call);
-            dt.obj = AppData.order;
+            dt.obj = call;
             out.writeObject(dt);
             out.flush();
             
-            // 서버로부터 응답 대기 및 처리
-            DataType response = null;
-            while(response == null) {
-            	response = (DataType) in.readObject();
-            }
-            
-            return true;
-
             
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	
-		return false;
+		return true;
 
     }
 }

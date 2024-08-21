@@ -2,6 +2,7 @@ package admin;
 
 import control.AccountMgr;
 import entity.Account;
+import entity.AppData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,12 +35,13 @@ public class MLogin {
 	@FXML
     private void handleLoginButtonAction(ActionEvent event) {
         try {
+        	
         	Main.acc = new Account();
         	Main.acc.setUser_ID(userID.getText());
         	Main.acc.setUser_PW(userPW.getText());
         	accMgr = new AccountMgr();
         	
-	        	if(accMgr.selectAccount(Main.acc)) {
+	        if(accMgr.selectAccount(Main.acc)) {
 	        	
 		        // Personnel.fxml 파일 로드
 		        Parent MTableRoot = FXMLLoader.load(getClass().getResource("MTable.fxml"));
