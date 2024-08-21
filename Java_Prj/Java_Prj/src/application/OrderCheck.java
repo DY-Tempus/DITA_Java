@@ -11,6 +11,7 @@ import java.util.List;
 
 import entity.AppData;
 import entity.DataType;
+import entity.Order;
 import entity.Protocol;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class OrderCheck {
@@ -31,21 +34,13 @@ public class OrderCheck {
     private Button yesButton; // 예 버튼
     
     @FXML
-    private Label menuNameLabel; // 메뉴 이름 라벨
+    private VBox orderItemsContainer; // 주문 항목을 담는 컨테이너
 
-    @FXML
-    private Label countLabel; // 수량 라벨
-
-    @FXML
-    private Label totalPriceLabel; // 메뉴별 총 금액 라벨
-    
     @FXML
     private Label ALLtotalPriceLabel; // 모든 금액을 합친 금액 라벨
     
-    private Stage previousStage; // 이전 Stage를 저장할 변수
-    private int allTotalPrice = 0; // 모든 메뉴의 총 금액을 저장할 변수
-    
-
+    private Stage previousStage;
+    private int allTotalPrice = 0; // 모든 메뉴의 총 금액
 
 	Socket socket;
 	ObjectOutputStream out;
@@ -56,23 +51,44 @@ public class OrderCheck {
         this.previousStage = stage;
     }
 
-    // 장바구니에서 데이터를 받아 설정하는 메서드
+    // 장바구니에서 데이터를 받아 설정
     public void setOrderDetails(String menuName, int count, int totalPrice) {
-        menuNameLabel.setText(menuName);
-        countLabel.setText(String.valueOf(count + "개"));
-        totalPriceLabel.setText(String.format("%,d원", totalPrice));
+        AnchorPane itemContainer = new AnchorPane();
+        Label menuNameLabel = new Label(menuName);
+        menuNameLabel.setLayoutX(31.0);
+        menuNameLabel.setLayoutY(14.0);
+        menuNameLabel.setStyle("-fx-font-size: 25px;");
+        
+        Label countLabel = new Label(count + "개");
+        countLabel.setLayoutX(300.0);
+        countLabel.setLayoutY(14.0);
+        countLabel.setStyle("-fx-font-size: 25px;");
+        
+        Label totalPriceLabel = new Label(String.format("%,d원", totalPrice));
+        totalPriceLabel.setLayoutX(483.0);
+        totalPriceLabel.setLayoutY(14.0);
+        totalPriceLabel.setStyle("-fx-font-size: 25px;");
+        
+        itemContainer.getChildren().addAll(menuNameLabel, countLabel, totalPriceLabel);
+        itemContainer.setPrefHeight(50.0);
+
+        orderItemsContainer.getChildren().add(itemContainer);
+
         // 모든 메뉴의 총 금액에 이번 메뉴의 총 금액을 더함
         allTotalPrice += totalPrice;
+
         // 합산한 총 금액을 ALLtotalPriceLabel에 표시
         ALLtotalPriceLabel.setText(String.format("%,d원", allTotalPrice));
     }
 
-    // 아니요 버튼
+    // 아니요 버튼 이벤트
     @FXML
     private void handlenoButtonAction(ActionEvent event) {
         // 현재 창(Stage) 닫기
         Stage currentStage = (Stage) noButton.getScene().getWindow();
         currentStage.close();
+        
+        AppData.order.getOrder_detail().clear();
         
         // 이전 Stage가 존재하는 경우 다시 보여주기
         if (previousStage != null) {
@@ -80,30 +96,13 @@ public class OrderCheck {
         }
     }
 
-    // 예 버튼
+    // 예 버튼 이벤트
     @FXML
     private void handleyesButtonAction(ActionEvent event) {
-    	
-		/*
-		 * if(sock==null) { try { sock = new Socket(Main.SERVER_ADDRESS,
-		 * Main.SERVER_PORT); is=this.sock.getInputStream();
-		 * os=this.sock.getOutputStream(); oos=new ObjectOutputStream(os); ois=new
-		 * ObjectInputStream(is); } catch (Exception e) { e.printStackTrace(); } }
-		 * DataType data=new DataType(); data.protocol=Protocol.order;
-		 * AppData.order.setGuest_ID(AppData.guest.getGuest_ID());
-		 * AppData.order.setUser_ID(AppData.guest.getUser_ID()); data.obj =
-		 * AppData.order;
-		 * 
-		 * try { oos.writeObject(data);
-		 * 
-		 * 
-		 * oos.close(); ois.close(); os.close(); is.close(); sock.close();
-		 * 
-		 * } catch (IOException e) { e.printStackTrace(); }
-		 */
-    	
         try {
+        	
         	if(sendOrder()) {
+        	
             // 현재 열려 있는 모든 창(Window)들 중에서 화면에 보이는 것만 선택하여 닫기
             List<Stage> openStages = Stage.getWindows().stream()
                     .filter(window -> window instanceof Stage && window.isShowing())
@@ -117,7 +116,9 @@ public class OrderCheck {
 
             Parent requestRoot = FXMLLoader.load(getClass().getResource("OrderComplete.fxml"));
             Scene requestScene = new Scene(requestRoot);
-                    
+            
+            ShoppingCart.clearCart();
+            
             // 새로운 Stage 생성
             Stage orderCompleteStage = new Stage();
             orderCompleteStage.setScene(requestScene);
@@ -135,11 +136,10 @@ public class OrderCheck {
                 orderCompleteStage.setX(primaryStageX + (primaryStageWidth - stageWidth) / 2);
                 orderCompleteStage.setY(primaryStageY + (primaryStageHeight - stageHeight) / 2);
             });
-
-            // OrderComplete 창을 보여줌
+            
             orderCompleteStage.show();
+            
         	}
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -166,6 +166,9 @@ public class OrderCheck {
             	response = (DataType) in.readObject();
             }
             
+            AppData.order = new Order();
+            
+            
             out.close();
             in.close();
             
@@ -177,5 +180,4 @@ public class OrderCheck {
     	
 		return false;
     }
-    
 }

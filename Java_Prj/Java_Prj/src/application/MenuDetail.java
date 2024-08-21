@@ -131,27 +131,6 @@ public class MenuDetail {
     @FXML
     private void handlecartButtonAction(ActionEvent event) {
         try {
-        	boolean flag=false;
-        	Order_detail od=new Order_detail();
-        	for(Order_detail it:AppData.order.getOrder_detail()) {//장바구니에 같은 이름의 상품이 존재한다면
-        		if(it.getMenu_Name().equals(menuNameLabel.getText())) {
-        			it.setOrder_Num(it.getOrder_Num()+Integer.parseInt(countLabel.getText()));
-        			flag=true;
-        			break;
-        		}
-        	}
-        	
-        	if(!flag) {//장바구니에 없다면
-        		od.setCtg_Name(CtgName);
-            	od.setMenu_Name(menuName);
-            	od.setOrder_Num(Integer.parseInt(countLabel.getText()));
-            	AppData.order.setOrder_detail(od);
-        	}
-        	
-//        	for(Order_detail odd: AppData.order.getOrder_detail()) {
-//        		System.out.println(odd.toString());
-//        	}
-        	
         	
         	// ShoppingCart.fxml 로드
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ShoppingCart.fxml"));
@@ -166,7 +145,7 @@ public class MenuDetail {
             int currentCount = Integer.parseInt(countLabel.getText()); // 현재 수량을 그대로 전달
 
             // 장바구니에 추가
-            shoppingCartController.addMenuItem(menuName, price, currentCount);
+            shoppingCartController.addMenuItem(menuName, price, currentCount, CtgName);
             
             // MenuDetail 창 닫기
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -21,7 +21,7 @@ public class Main extends Application {
         try {
             // 메인 창의 참조를 저장
             Main.primaryStage = primaryStage;
-			Font.loadFont(getClass().getResourceAsStream("Inter-VariableFont_opsz,wght.ttf"), 10);
+            Font font = Font.loadFont(getClass().getResourceAsStream("/Fonts/Inter-VariableFont_opsz,wght.ttf"), 10);
             Parent root = FXMLLoader.load(getClass().getResource("GLogin.fxml"));
             Scene scene = new Scene(root);
             

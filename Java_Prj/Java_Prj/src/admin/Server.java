@@ -154,13 +154,12 @@ public class Server {
 		// 주문하기.
 		public void order(DataType data) {
 			Order order = (Order) data.obj;
-			
-			
+		
 			try {
 				if(orderMgr.insertOrder(order)) {
-					System.out.println("11");
 					data.obj = null;
 					oos.writeObject(data);
+					System.out.println("주문이 들어왔습니다.");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
