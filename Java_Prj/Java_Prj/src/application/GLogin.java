@@ -33,11 +33,13 @@ public class GLogin {
 	@FXML
     private void handleLoginButtonAction(ActionEvent event) {
 		try {
+			if(requestLogin()) {
             Parent StartRoot = FXMLLoader.load(getClass().getResource("Start.fxml"));
             Scene StartScene = new Scene(StartRoot);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(StartScene);
             stage.show();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

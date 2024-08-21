@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.net.ssl.SSLContext;
 
+import entity.Order;
 import entity.Order_detail;
 
 public class Order_detailMgr {
@@ -19,7 +20,7 @@ public class Order_detailMgr {
 	}
 	
 	// 주문 상세 목록 삽입.
-	public boolean insertOrder_detail(Vector <Order_detail> list) {
+	public boolean insertOrder_detail(Order list) {
 		Connection con = null;
         PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -29,22 +30,12 @@ public class Order_detailMgr {
         try {
             con = pool.getConnection();
             con.setAutoCommit(false); // 배치 작업을 위해 수동 커밋 모드로 설정
-
-			// 새 Order_No를 가져오는 쿼리
-	        String selectSql = "SELECT COALESCE(MAX(Order_No), 0) + 1 AS new_id FROM Order_detail";
-	        pstmt = con.prepareStatement(selectSql);
-	        rs = pstmt.executeQuery();
             
             pstmt = con.prepareStatement(sql);
             
-	        // 디폴트값
-	        int newOrderNo = 1;
-	        
-	        if(rs.next()) {
-	        	newOrderNo = rs.getInt("new_id");
-	        }
-            for (Order_detail order : list) {
-                pstmt.setInt(1, order.getOrder_No());
+            for (Order_detail order : list.getOrder_detail()) {
+            	
+                pstmt.setInt(1, list.getOrder_No());
                 pstmt.setString(2, order.getMenu_Name());
                 pstmt.setString(3, order.getCtg_Name());
                 pstmt.setInt(4, order.getOrder_Num());

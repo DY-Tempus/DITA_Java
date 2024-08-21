@@ -155,9 +155,10 @@ public class Server {
 		public void order(DataType data) {
 			Order order = (Order) data.obj;
 			
+			
 			try {
 				if(orderMgr.insertOrder(order)) {
-					detailMgr.insertOrder_detail(order.getOrder_detail());
+					System.out.println("11");
 					data.obj = null;
 					oos.writeObject(data);
 				}
@@ -166,27 +167,7 @@ public class Server {
 			}
 		}
 		
-		// 상세 주문 정보 받기.
-		public void order_detail(DataType data) {
-			Vector <Order_detail> detail = (Vector <Order_detail>) data.obj;
-			try {
-				if(detailMgr.insertOrder_detail(detail)) {
-					oos.writeObject(data);
-					
-					/*
-	                FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/MOrderDetail.fxml"));
-	                Parent root = loader.load();
-	                MOrderDetail controller = loader.getController();
-	                controller.updateOrderDetails(detail);
-	                Stage newStage = new Stage();
-	                newStage.setScene(new Scene(root));
-	                newStage.show();
-	                */
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+
 		
 		// 요청 사항 받기.
 		public void call(DataType data) {

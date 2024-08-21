@@ -45,12 +45,12 @@ public class OrderCheck {
     private Stage previousStage; // 이전 Stage를 저장할 변수
     private int allTotalPrice = 0; // 모든 메뉴의 총 금액을 저장할 변수
     
-	Socket sock;
-	OutputStream os;
-	InputStream is;
-	ObjectOutputStream oos;
-	ObjectInputStream ois;
 
+
+	Socket socket;
+	ObjectOutputStream out;
+    ObjectInputStream in;
+    
     // 이전 Stage를 설정하는 메서드
     public void setPreviousStage(Stage stage) {
         this.previousStage = stage;
@@ -84,34 +84,26 @@ public class OrderCheck {
     @FXML
     private void handleyesButtonAction(ActionEvent event) {
     	
-    	if(sock==null) {
-			try {
-				sock = new Socket(Main.SERVER_ADDRESS, Main.SERVER_PORT);
-				is=this.sock.getInputStream();
-				os=this.sock.getOutputStream();
-				oos=new ObjectOutputStream(os);
-				ois=new ObjectInputStream(is);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-    	DataType data=new DataType();
-    	data.protocol=Protocol.order;
-
-    	data.obj=AppData.order;
-    	try {
-			oos.writeObject(data);
-			oos.close();
-			ois.close();
-			os.close();
-			is.close();
-			sock.close();
-		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		/*
+		 * if(sock==null) { try { sock = new Socket(Main.SERVER_ADDRESS,
+		 * Main.SERVER_PORT); is=this.sock.getInputStream();
+		 * os=this.sock.getOutputStream(); oos=new ObjectOutputStream(os); ois=new
+		 * ObjectInputStream(is); } catch (Exception e) { e.printStackTrace(); } }
+		 * DataType data=new DataType(); data.protocol=Protocol.order;
+		 * AppData.order.setGuest_ID(AppData.guest.getGuest_ID());
+		 * AppData.order.setUser_ID(AppData.guest.getUser_ID()); data.obj =
+		 * AppData.order;
+		 * 
+		 * try { oos.writeObject(data);
+		 * 
+		 * 
+		 * oos.close(); ois.close(); os.close(); is.close(); sock.close();
+		 * 
+		 * } catch (IOException e) { e.printStackTrace(); }
+		 */
     	
         try {
+        	if(sendOrder()) {
             // 현재 열려 있는 모든 창(Window)들 중에서 화면에 보이는 것만 선택하여 닫기
             List<Stage> openStages = Stage.getWindows().stream()
                     .filter(window -> window instanceof Stage && window.isShowing())
@@ -146,9 +138,44 @@ public class OrderCheck {
 
             // OrderComplete 창을 보여줌
             orderCompleteStage.show();
+        	}
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    public boolean sendOrder() {
+    	try {
+    		socket = new Socket(Main.SERVER_ADDRESS, Main.SERVER_PORT);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
+            
+            DataType data=new DataType();
+        	data.protocol=Protocol.order;
+        	AppData.order.setGuest_ID(AppData.guest.getGuest_ID());
+        	AppData.order.setUser_ID(AppData.guest.getUser_ID());
+        	data.obj = AppData.order;
+            
+        	out.writeObject(data);
+        	out.flush();
+        	
+            // 서버로부터 응답 대기 및 처리
+            DataType response = null;
+            while(response == null) {
+            	response = (DataType) in.readObject();
+            }
+            
+            out.close();
+            in.close();
+            
+            return true;
+        	
+		} catch (Exception e) {
+
+		}
+    	
+		return false;
+    }
+    
 }

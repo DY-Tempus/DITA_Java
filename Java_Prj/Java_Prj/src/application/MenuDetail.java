@@ -23,8 +23,11 @@ import javafx.stage.StageStyle;
 public class MenuDetail {
 	
 	private String CtgName;
+	
+	private String menuName;
+	
 	private int price;
-
+	
     @FXML
     private Label countLabel;
     
@@ -51,6 +54,8 @@ public class MenuDetail {
     public void setMenuDetails(String menuName, int price, Image menuImage, String CtgName) {
     	this.price=price;
     	this.CtgName = CtgName;
+    	this.menuName = menuName;
+    	
         menuNameLabel.setText(menuName + "\n" + price + "원");
         
         // 레이블이 부모 AnchorPane에서 중앙에 위치하도록 설정
@@ -138,7 +143,7 @@ public class MenuDetail {
         	
         	if(!flag) {//장바구니에 없다면
         		od.setCtg_Name(CtgName);
-            	od.setMenu_Name(menuNameLabel.getText());
+            	od.setMenu_Name(menuName);
             	od.setOrder_Num(Integer.parseInt(countLabel.getText()));
             	AppData.order.setOrder_detail(od);
         	}

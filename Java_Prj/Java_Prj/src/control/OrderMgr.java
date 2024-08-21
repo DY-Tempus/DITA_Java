@@ -57,7 +57,10 @@ public class OrderMgr {
 				bean.setOrder_No(newOrderNo);
 			}
 			// 커밋
-			con.commit();
+			con.commit(); // 트랜잭션 커밋
+			
+			Order_detailMgr ordMgr = new Order_detailMgr();
+			ordMgr.insertOrder_detail(bean);
 			
 		} catch (Exception e) {
 			if (con != null) {
