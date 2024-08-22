@@ -164,7 +164,7 @@ public class Server {
 				if(orderMgr.insertOrder(order)) {		
 					AppData.orderq.add(order);
                     // JavaFX UI 작업을 애플리케이션 스레드에서 수행하도록 수정
-                    Platform.runLater(() -> createNewWindow());
+                    Platform.runLater(() -> createNewWindow(order));
                     System.out.println("주문이 들어왔습니다.");
 				}
 			} catch (Exception e) {
@@ -185,7 +185,7 @@ public class Server {
 				AppData.orderq.add(ord);
 				
 				// JavaFX UI 작업을 애플리케이션 스레드에서 수행하도록 수정
-                Platform.runLater(() -> createNewWindow());
+                Platform.runLater(() -> createNewWindow(ord));
                 
                 System.out.println("요청사항이 들어왔습니다.");
 			} catch (Exception e) {
@@ -194,11 +194,16 @@ public class Server {
 		}
 		
 		@FXML
-		   private void createNewWindow() {
+		   private void createNewWindow(Order ord) {
 		      try {
 		         // fxml 파일 로드
-		         Parent MDetailRoot = FXMLLoader.load(getClass().getResource("MOrder_detail.fxml"));
+		    	 FXMLLoader loader = new FXMLLoader(getClass().getResource("MOrder_detail.fxml"));
+		         Parent MDetailRoot = loader.load();
 
+		         WindowController request = loader.getController();
+		         
+		         request.updateOrderList(ord);
+		         
 		         // 새로운 장면(Scene) 생성
 		         Scene MDetailScene = new Scene(MDetailRoot);
 

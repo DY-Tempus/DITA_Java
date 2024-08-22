@@ -47,18 +47,18 @@ public class WindowController {
     	menuCol.setCellValueFactory(new PropertyValueFactory<>("menuName"));
     	quanCol.setCellValueFactory(new PropertyValueFactory<>("orderNum"));
         
-        updateOrderList();
+        //updateOrderList();
         orderView.setItems(list);
     }
 
-    private void updateOrderList() {
+    public void updateOrderList(Order order) {
     
         Vector<OrderViewItem> orview = new Vector<OrderViewItem>();
-        for (Order order : AppData.orderq) {
-            for (Order_detail detail : order.getOrder_detail()) {
-            	orview.add(new OrderViewItem(order.getGuest_ID(), detail.getMenu_Name(), detail.getOrder_Num()));
-            }
+
+        for (Order_detail detail : order.getOrder_detail()) {
+        	orview.add(new OrderViewItem(order.getGuest_ID(), detail.getMenu_Name(), detail.getOrder_Num()));
         }
+        
         list.clear();
         list.addAll(orview);
     }
