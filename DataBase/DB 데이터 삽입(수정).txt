@@ -3,8 +3,13 @@ INSERT INTO Account (User_ID, User_PW, User_Branch, User_Address) VALUES ('user1
 INSERT INTO Account (User_ID, User_PW, User_Branch, User_Address) VALUES ('user2', '1234', '서면점', 'Address2');
 
 /* Guest 테이블에 데이터 삽입 */
-INSERT INTO Guest (Guest_ID, User_ID) VALUES ('guest1', 'user1');
-INSERT INTO Guest (Guest_ID, User_ID) VALUES ('guest2', 'user2');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('Table 1', 'user1');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('Table 2', 'user1');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('Table 3', 'user1');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('Table 4', 'user1');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('Table 5', 'user1');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('Table 6', 'user1');
+INSERT INTO Guest (Guest_ID, User_ID) VALUES ('Ghost', 'user1');
 
 /* Category 테이블에 데이터 삽입 */
 INSERT INTO Category (Ctg_Name) VALUES ('추천메뉴'); 
