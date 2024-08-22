@@ -137,6 +137,8 @@ public class Server {
 			Guest guest = (Guest) data.obj;
 			try {
 				if(guestMgr.selectGuest(guest)) {
+					((Guest) data.obj).setUser_ID(AppData.account.getUser_ID());
+					
 					oos.writeObject(data);
 					System.out.println("게스트 로그인 성공");
 				}
@@ -161,7 +163,7 @@ public class Server {
 			Order order = (Order) data.obj;
 		
 			try {
-				if(orderMgr.insertOrder(order)) {		
+				if(orderMgr.insertOrder(order)) {
 					AppData.orderq.add(order);
                     // JavaFX UI 작업을 애플리케이션 스레드에서 수행하도록 수정
                     Platform.runLater(() -> createNewWindow(order));

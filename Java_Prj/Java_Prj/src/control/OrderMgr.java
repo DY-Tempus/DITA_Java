@@ -1,6 +1,7 @@
 package control;
 
 import entity.Account;
+import entity.Guest;
 import entity.Order;
 import entity.Total_order;
 
@@ -140,14 +141,21 @@ public class OrderMgr {
 	    
 	    try {
 	        con = pool.getConnection();
-	        sql = "SELECT orders.order_no AS \"테이블 번호\", TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS') AS \"주문 시간\", "
-	            + "LISTAGG(order_detail.menu_name, ', ') WITHIN GROUP (ORDER BY order_detail.menu_name) AS \"주문 내역\", "
-	            + "SUM(order_detail.order_num * menu.menu_price) AS \"금액\" "
-	            + "FROM ORDER_DETAIL "
-	            + "JOIN ORDERS ON order_detail.order_no = orders.order_no "
-	            + "JOIN MENU ON menu.menu_name = order_detail.menu_name "
-	            + "WHERE orders.order_date < SYSDATE AND orders.user_id = ? "
-	            + "GROUP BY orders.order_no, TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS')";
+	        sql = "SELECT "
+	                + "orders.order_no AS \"테이블 번호\", "
+	                + "TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS') AS \"주문 시간\", "
+	                + "LISTAGG(DISTINCT order_detail.menu_name, ', ') WITHIN GROUP (ORDER BY order_detail.menu_name) AS \"주문 내역\", "
+	                + "SUM(order_detail.order_num * menu.menu_price) AS \"금액\" "
+	                + "FROM "
+	                + "ORDER_DETAIL order_detail "
+	                + "JOIN ORDERS ON order_detail.order_no = orders.order_no "
+	                + "JOIN MENU ON menu.menu_name = order_detail.menu_name "
+	                + "WHERE "
+	                + "orders.order_date < SYSDATE "
+	                + "AND orders.user_id = ? "
+	                + "GROUP BY "
+	                + "orders.order_no, "
+	                + "TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS')";
 	        pstmt = con.prepareStatement(sql);
 	        pstmt.setString(1, id);
 	        rs = pstmt.executeQuery();
@@ -168,6 +176,51 @@ public class OrderMgr {
 	    }
 	    return list;
 	}
+	
+	public boolean updateOrder(Guest bean) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    String sql = null;
+	    int n = 0;
+
+	    try {
+	        con = pool.getConnection();
+	        con.setAutoCommit(false); // 트랜잭션 시작
+
+	        sql = "UPDATE orders SET guest_id = 'Ghost' WHERE user_id = ? AND guest_id = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, bean.getUser_ID());
+	        pstmt.setString(2, bean.getGuest_ID());
+
+	        System.out.println(bean.getUser_ID());
+	        System.out.println(bean.getGuest_ID());
+
+	        n = pstmt.executeUpdate();
+
+	        if (n > 0) {
+	            con.commit(); // 트랜잭션 커밋
+	        } else {
+	            con.rollback(); // 업데이트가 없으면 롤백
+	        }
+
+	        System.out.println(n);
+
+	    } catch (Exception e) {
+	        if (con != null) {
+	            try {
+	                con.rollback(); // 예외 발생 시 롤백
+	            } catch (SQLException rollbackEx) {
+	                rollbackEx.printStackTrace();
+	            }
+	        }
+	        e.printStackTrace();
+	    } finally {
+	        pool.closeResources(con, pstmt, null);
+	    }
+
+	    return (n > 0);
+	}
+
 
 	
 	public static void main(String[] args) {

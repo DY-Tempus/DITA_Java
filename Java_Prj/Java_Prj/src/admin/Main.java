@@ -16,7 +16,6 @@ public class Main extends Application {
     private static Stage primaryStage; // 메인 창의 참조를 저장할 정적 변수
     public static String SERVER_ADDRESS = "localhost";
     public static int SERVER_PORT = 8003;
-    public static Account acc; 
     private Server server; // 서버 인스턴스 추가
     @Override
     public void start(Stage primaryStage) {

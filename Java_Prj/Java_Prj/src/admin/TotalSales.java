@@ -2,6 +2,7 @@ package admin;
 
 import java.util.Vector;
 import control.OrderMgr;
+import entity.AppData;
 import entity.Total_order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,7 +78,7 @@ public class TotalSales {
     
     private void selectTotalSale() {
         ordMgr = new OrderMgr();
-        Vector<Total_order> orders = ordMgr.selectTotalOrder(Main.acc.getUser_ID());
+        Vector<Total_order> orders = ordMgr.selectTotalOrder(AppData.account.getUser_ID());
         Price = 0;
         for (Total_order total_order : orders) {
         	Price += total_order.getPrice();

@@ -12,6 +12,6 @@ public class AppData {
 	
 	//관리자용
 	public static Account account=new Account();
-	public static Queue<Order> orderq=new LinkedList<Order>();
+	public static LinkedList<Order> orderq=new LinkedList<Order>();
 	public static Vector<Guest> guestids=new Vector<Guest>();
 }

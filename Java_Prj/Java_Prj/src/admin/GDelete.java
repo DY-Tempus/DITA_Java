@@ -2,6 +2,10 @@ package admin;
 
 import java.util.Optional;
 
+import control.GuestMgr;
+import control.OrderMgr;
+import entity.AppData;
+import entity.Guest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -52,17 +56,35 @@ public class GDelete {
 
         // 다이얼로그에서 사용자가 선택한 결과 기다리기
         Optional<ButtonType> result = alert.showAndWait();
-
+        String BtnId = "";
         // '확인' 버튼을 클릭했을 때
         if (result.isPresent() && result.get() == ButtonType.OK) {
             Button button = (Button) event.getSource();
-
-            // 버튼의 부모 노드를 가져와서
-            Pane parent = (Pane) button.getParent();
-
-            // 부모 노드에서 해당 버튼을 삭제
-            parent.getChildren().remove(button);
+            
+            BtnId = button.getText();
+                       
+	        // 버튼의 부모 노드를 가져와서
+	        Pane parent = (Pane) button.getParent();
+	
+	        // 부모 노드에서 해당 버튼을 삭제
+	        parent.getChildren().remove(button);
+            
+         
         }
+        
+        Guest guest = new Guest();
+        guest.setUser_ID(AppData.account.getUser_ID());
+        guest.setGuest_ID(BtnId);
+        
+        System.out.println(guest.getGuest_ID());
+        System.out.println(guest.getUser_ID());
+        
+        
+        OrderMgr ordMgr = new OrderMgr();
+        GuestMgr guestMgr = new GuestMgr();
+        
+		System.out.println(ordMgr.updateOrder(guest));
+		guestMgr.deleteGuest(guest);
     }
 	
 	// 뒤로가기 버튼

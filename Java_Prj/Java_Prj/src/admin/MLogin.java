@@ -36,12 +36,11 @@ public class MLogin {
     private void handleLoginButtonAction(ActionEvent event) {
         try {
         	
-        	Main.acc = new Account();
-        	Main.acc.setUser_ID(userID.getText());
-        	Main.acc.setUser_PW(userPW.getText());
+        	AppData.account.setUser_ID(userID.getText());
+        	AppData.account.setUser_PW(userPW.getText());
         	accMgr = new AccountMgr();
         	
-	        if(accMgr.selectAccount(Main.acc)) {
+	        if(accMgr.selectAccount(AppData.account)) {
 	        	
 		        // Personnel.fxml 파일 로드
 		        Parent MTableRoot = FXMLLoader.load(getClass().getResource("MTable.fxml"));

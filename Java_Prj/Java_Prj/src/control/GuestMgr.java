@@ -137,18 +137,24 @@ public class GuestMgr {
 	
 	//게스트 삭제
 	public boolean deleteGuest(Guest g) {
+		
 		boolean b=false;
 		String sql = "delete from guest where guest_id=? and user_id=?";
 		try {
 			con = pool.getConnection();
+			con.setAutoCommit(false);
+			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, g.getGuest_ID());
 			pstmt.setString(2, g.getUser_ID());
 			if(pstmt.executeUpdate()!=0) b=true;
+			
+			// 커밋
+			con.commit(); // 트랜잭션 커밋
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			pool.closeResources(con, pstmt, rs);
+			pool.closeResources(con, pstmt, null);
 		}
 		return b;
 	}

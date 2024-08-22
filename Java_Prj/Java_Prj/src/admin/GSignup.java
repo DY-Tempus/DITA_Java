@@ -2,6 +2,7 @@ package admin;
 
 import control.AccountMgr;
 import control.GuestMgr;
+import entity.AppData;
 import entity.Guest;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -151,6 +152,6 @@ public class GSignup {
     // Guest 객체에 필드 값을 설정
     private void populateGuest() {
         gst.setGuest_ID(guestID.getText());
-        gst.setUser_ID(Main.acc.getUser_ID());
+        gst.setUser_ID(AppData.account.getUser_ID());
     }
 }

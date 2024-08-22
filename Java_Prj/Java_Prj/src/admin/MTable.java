@@ -43,11 +43,31 @@ public class MTable {
 	@FXML
     private void handleTableButtonAction(ActionEvent event) {
         try {
-            // Personnel.fxml 파일 로드
-            Parent MOrderRoot = FXMLLoader.load(getClass().getResource("MOrder_detail.fxml"));
+        	Button button;
+        	String buttonId = "";
+        	// 이벤트 소스가 Button 타입인지 확인
+            Node source = (Node) event.getSource();
+            if (source instanceof Button) {
+                button = (Button) source;
+                
+                // 버튼의 ID를 가져오기
+                buttonId = button.getText();  // 또는 button.getText()로 버튼의 이름 가져오기
+
+                //System.out.println("Button ID: " + buttonId);
+            }
+        	
+        	
+            
+	         // fxml 파일 로드
+	    	 FXMLLoader loader = new FXMLLoader(getClass().getResource("MOrder_detail.fxml"));
+	         Parent MDetailRoot = loader.load();
+
+	         WindowController request = loader.getController();
+	         
+	         request.updateOrderQ(buttonId);
             
             // 새로운 장면(Scene) 생성
-            Scene MOrderScene = new Scene(MOrderRoot);
+            Scene MOrderScene = new Scene(MDetailRoot);
             
             // 현재 이벤트의 소스에서 현재 스테이지 가져오기
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
