@@ -160,15 +160,10 @@ public class OrderCheck {
         	out.writeObject(data);
         	out.flush();
         	
-            // 서버로부터 응답 대기 및 처리
-            DataType response = null;
-            while(response == null) {
-            	response = (DataType) in.readObject();
-            }
-            
+        	
+        	
             AppData.order = new Order();
-            
-            
+                  
             out.close();
             in.close();
             

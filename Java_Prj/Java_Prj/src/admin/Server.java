@@ -161,14 +161,11 @@ public class Server {
 			Order order = (Order) data.obj;
 		
 			try {
-				if(orderMgr.insertOrder(order)) {
-					oos.writeObject(data);
-					System.out.println("주문이 들어왔습니다.");
-					
+				if(orderMgr.insertOrder(order)) {		
 					AppData.orderq.add(order);
                     // JavaFX UI 작업을 애플리케이션 스레드에서 수행하도록 수정
                     Platform.runLater(() -> createNewWindow());
-					
+                    System.out.println("주문이 들어왔습니다.");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -181,8 +178,6 @@ public class Server {
 		public void call(DataType data) {
 			Call call = (Call) data.obj;
 			try {
-				System.out.println("요청사항이 들어왔습니다.");
-				
 				Order ord = new Order();
 				ord.setGuest_ID(call.getGuestID());
 				processOrder(ord, call);
@@ -191,7 +186,8 @@ public class Server {
 				
 				// JavaFX UI 작업을 애플리케이션 스레드에서 수행하도록 수정
                 Platform.runLater(() -> createNewWindow());
-				
+                
+                System.out.println("요청사항이 들어왔습니다.");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

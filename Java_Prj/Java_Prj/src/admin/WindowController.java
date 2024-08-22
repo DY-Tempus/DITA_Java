@@ -6,7 +6,6 @@ import entity.AppData;
 import entity.Order;
 import entity.OrderViewItem;
 import entity.Order_detail;
-import entity.Total_order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
