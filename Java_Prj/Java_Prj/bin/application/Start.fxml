@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Start">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Start">
    <children>
       <ImageView fitHeight="551.0" fitWidth="801.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,6 +19,6 @@
             <Image url="@images/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="startButton" layoutX="310.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleStartButtonAction" prefHeight="21.0" prefWidth="161.0" style="-fx-background-color: D90000;" styleClass="start-button" stylesheets="@application.css" text="시작하기" />
+      <Button fx:id="startButton" layoutX="315.0" layoutY="444.0" mnemonicParsing="false" onAction="#handleStartButtonAction" styleClass="start-button" text="시작하기" />
    </children>
 </AnchorPane>

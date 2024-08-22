@@ -99,9 +99,17 @@ public class MSignup {
         Platform.runLater(() -> {
             if (accMgr.selectUserID(Checkid)) {
                 showAlert("정보", "아이디가 존재합니다.");
-            } else {
-                checkButton.setDisable(true);
+            } 
+            
+            else if(Checkid.isEmpty()) {
+            	showAlert("정보", "아이디를 입력해주세요.");
+            	return;
             }
+            else {
+                checkButton.setDisable(true);
+                userID.setDisable(true);
+            }
+            
         });
     }
     

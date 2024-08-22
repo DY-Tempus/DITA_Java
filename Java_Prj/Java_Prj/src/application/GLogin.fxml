@@ -8,9 +8,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GLogin">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GLogin">
    <children>
       <ImageView fitHeight="551.0" fitWidth="801.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,16 +21,8 @@
             <Image url="@images/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="loginButton" layoutX="310.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="21.0" prefWidth="161.0" style="-fx-background-color: black;" styleClass="start-button" text="로그인" />
-      <TextField fx:id="guestID" layoutX="296.0" layoutY="256.0" prefHeight="38.0" prefWidth="208.0" promptText="게스트 ID를 입력하세요.">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <Label layoutX="287.0" layoutY="130.0" prefHeight="58.0" prefWidth="225.0" text="게스트 로그인" textFill="WHITE">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
+      <Button fx:id="loginButton" layoutX="315.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" styleClass="g-login-button" text="로그인" />
+      <TextField fx:id="guestID" layoutX="294.0" layoutY="264.0" promptText="게스트 ID를 입력하세요." styleClass="g-id-textfield" />
+      <Label layoutX="287.0" layoutY="128.0" styleClass="g-login-label" text="게스트 로그인" />
    </children>
 </AnchorPane>

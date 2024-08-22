@@ -10,40 +10,19 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrderCheck">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrderCheck">
    <children>
       <Line endX="499.0" endY="-1.52587890625E-5" layoutX="101.0" layoutY="82.0" startX="-100.0" />
-      <Label layoutX="95.0" layoutY="22.0" text="이대로 주문하시겠습니까?">
-         <font>
-            <Font name="System Bold" size="35.0" />
-         </font>
-      </Label>
-      <Button fx:id="noButton" layoutX="64.0" layoutY="340.0" mnemonicParsing="false" onAction="#handlenoButtonAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: D90000;" text="아니오" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Button fx:id="yesButton" layoutX="331.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleyesButtonAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: D90000;" text="예" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Label layoutX="64.0" layoutY="297.0" text="합계">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label fx:id="ALLtotalPriceLabel" layoutX="449.0" layoutY="297.0" text="총 금액">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <ScrollPane hbarPolicy="NEVER" layoutY="82.0" prefHeight="210.0" prefWidth="600.0" vbarPolicy="NEVER">
+      <Label layoutX="95.0" layoutY="22.0" styleClass="ordercheck-label" text="이대로 주문하시겠습니까?"/>
+      <Button fx:id="noButton" layoutX="64.0" layoutY="340.0" mnemonicParsing="false" onAction="#handlenoButtonAction" styleClass="no-button" text="아니오" />
+      <Button fx:id="yesButton" layoutX="331.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleyesButtonAction" styleClass="yes-button" text="예" />
+      <Label layoutX="64.0" layoutY="297.0" styleClass="totalprice2-label" text="합계"/>
+      <Label fx:id="ALLtotalPriceLabel" layoutX="449.0" layoutY="297.0" styleClass="alltotalprice-label" text="총 금액"/>
+      <ScrollPane layoutY="82.0" prefHeight="210.0" prefWidth="600.0" styleClass="white-scrollPane">
         <content>
             <AnchorPane>
                <children>
                 <VBox fx:id="orderItemsContainer" minHeight="0.0" minWidth="0.0">
-               <!-- 주문 항목들이 동적으로 추가될 VBox -->
           		</VBox>
                </children>
             </AnchorPane>

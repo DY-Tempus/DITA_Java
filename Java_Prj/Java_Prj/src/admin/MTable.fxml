@@ -13,33 +13,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.MTable">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" styleClass="background-white" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.MTable">
    <children>
       <ImageView fitHeight="110.0" fitWidth="210.0" layoutX="20.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/logo_black.png" />
          </image>
       </ImageView>
-      <Label layoutX="308.0" layoutY="52.0" text="테이블 목록">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Button fx:id="logOutButton" layoutX="605.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: black;" text="로그아웃" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="mgButton" layoutX="212.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleMgButtonAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: black;" text="계정 관리" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="salesButton" layoutX="465.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleSalesButtonAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: black;" text="전체 매출" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+      <Label layoutX="308.0" layoutY="52.0" styleClass="m-table-label" text="테이블 목록"/>
+      <Button fx:id="logOutButton" layoutX="605.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleLogOutButtonAction" styleClass="m-logout-button" text="로그아웃" />
+      <Button fx:id="mgButton" layoutX="212.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleMgButtonAction" styleClass="m-mg-button" text="계정 관리" />
+      <Button fx:id="salesButton" layoutX="465.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleSalesButtonAction" styleClass="m-sales-button" text="전체 매출" />
       <GridPane layoutX="35.0" layoutY="120.0" prefHeight="350.0" prefWidth="750.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -51,53 +35,35 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="tbl1_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="130.0" prefWidth="180.0" style="-fx-background-color: gray; -fx-background-radius: 10;" text="Table 1" textFill="WHITE">
+            <Button fx:id="tbl1_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" styleClass="m-table-button" text="Table 1" >
                <GridPane.margin>
                   <Insets left="24.0" />
                </GridPane.margin>
-               <font>
-                  <Font size="24.0" />
-               </font>
             </Button>
-            <Button fx:id="tbl2_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="130.0" prefWidth="180.0" style="-fx-background-color: gray; -fx-background-radius: 10;" text="Table 2" textFill="WHITE" GridPane.columnIndex="1">
+            <Button fx:id="tbl2_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" styleClass="m-table-button" text="Table 2" GridPane.columnIndex="1" >
                <GridPane.margin>
                   <Insets left="24.0" />
                </GridPane.margin>
-               <font>
-                  <Font size="24.0" />
-               </font>
             </Button>
-            <Button fx:id="tbl3_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="130.0" prefWidth="180.0" style="-fx-background-color: gray; -fx-background-radius: 10;" text="Table 3" textFill="WHITE" GridPane.columnIndex="2">
+            <Button fx:id="tbl3_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" styleClass="m-table-button" text="Table 3" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets left="24.0" />
                </GridPane.margin>
-               <font>
-                  <Font size="24.0" />
-               </font>
             </Button>
-            <Button fx:id="tbl4_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="130.0" prefWidth="180.0" style="-fx-background-color: gray; -fx-background-radius: 10;" text="Table 4" textFill="WHITE" GridPane.rowIndex="1">
+            <Button fx:id="tbl4_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" styleClass="m-table-button" text="Table 4" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="24.0" />
                </GridPane.margin>
-               <font>
-                  <Font size="24.0" />
-               </font>
             </Button>
-            <Button fx:id="tbl5_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="130.0" prefWidth="180.0" style="-fx-background-color: gray; -fx-background-radius: 10;" text="Table 5" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="tbl5_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" styleClass="m-table-button" text="Table 5" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="24.0" />
                </GridPane.margin>
-               <font>
-                  <Font size="24.0" />
-               </font>
             </Button>
-            <Button fx:id="tbl6_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" prefHeight="130.0" prefWidth="180.0" style="-fx-background-color: gray; -fx-background-radius: 10;" text="Table 6" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="tbl6_Btn" mnemonicParsing="false" onAction="#handleTableButtonAction" styleClass="m-table-button" text="Table 6" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="24.0" />
                </GridPane.margin>
-               <font>
-                  <Font size="24.0" />
-               </font>
             </Button>
          </children>
       </GridPane>
