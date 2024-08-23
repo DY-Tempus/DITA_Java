@@ -151,11 +151,12 @@ public class OrderMgr {
 	                + "JOIN ORDERS ON order_detail.order_no = orders.order_no "
 	                + "JOIN MENU ON menu.menu_name = order_detail.menu_name "
 	                + "WHERE "
-	                + "orders.order_date < SYSDATE "
+	                + "TRUNC(orders.order_date) = TRUNC(SYSDATE) "
 	                + "AND orders.user_id = ? "
 	                + "GROUP BY "
 	                + "orders.order_no, "
 	                + "TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS')";
+
 	        pstmt = con.prepareStatement(sql);
 	        pstmt.setString(1, id);
 	        rs = pstmt.executeQuery();

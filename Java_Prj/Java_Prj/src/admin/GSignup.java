@@ -102,12 +102,15 @@ public class GSignup {
 	// 중복확인 버튼
     @FXML
     private void handleDuplicateCheckButtonAction(ActionEvent event) {
-        String Checkid = guestID.getText();
+        Guest guest = new Guest();
+    	String Checkid = guestID.getText();
+    	guest.setGuest_ID(Checkid);
+    	guest.setUser_ID(AppData.account.getUser_ID());
         gstMgr = new GuestMgr();
         
         // 확인 메시지
         Platform.runLater(() -> {
-            if (gstMgr.selectGuestID(Checkid)) {
+            if (gstMgr.selectGuest(guest)) {
                 showAlert("정보", "아이디가 존재합니다.");
             } else {
                 checkButton.setDisable(true);

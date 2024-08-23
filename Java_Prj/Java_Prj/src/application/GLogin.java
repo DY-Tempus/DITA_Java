@@ -9,14 +9,19 @@ import entity.Call;
 import entity.DataType;
 import entity.Guest;
 import entity.Protocol;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GLogin {
@@ -40,6 +45,9 @@ public class GLogin {
             stage.setScene(StartScene);
             stage.show();
             }
+			else {
+				showAlert("정보", "일치하는 게스트 아이디가 없습니다.");
+			}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,6 +76,10 @@ public class GLogin {
             // 게스트 정보 받아오기.
             AppData.guest = (Guest) response.obj;
             
+            if(AppData.guest.getUser_ID() == null) {
+            	return false;
+            }
+            
             return true;
         	
 		} catch (Exception e) {
@@ -76,4 +88,31 @@ public class GLogin {
 		
 		return false;
 	}
+	
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        
+        // Alert의 Stage 가져오기
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        // 화면 중앙에 위치시키기 (안됨)
+        Platform.runLater(() -> {
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            double stageWidth = alertStage.getWidth();
+            double stageHeight = alertStage.getHeight();
+
+            double x = screenBounds.getMinX() + (screenBounds.getWidth() - stageWidth) / 2;
+            double y = screenBounds.getMinY() + (screenBounds.getHeight() - stageHeight) / 2;
+
+            alertStage.setX(x);
+            alertStage.setY(y);
+        });
+        
+        // Alert을 실행하여 창의 크기를 설정합니다.
+        alert.showAndWait();
+    }
 }

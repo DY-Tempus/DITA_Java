@@ -135,12 +135,18 @@ public class Server {
 		public void loginGuest(DataType data) {
 			
 			Guest guest = (Guest) data.obj;
+			System.out.println("게스트 로그인 요청 받음");
+			((Guest) data.obj).setUser_ID(AppData.account.getUser_ID());
 			try {
 				if(guestMgr.selectGuest(guest)) {
-					((Guest) data.obj).setUser_ID(AppData.account.getUser_ID());
+					//((Guest) data.obj).setUser_ID(AppData.account.getUser_ID());
 					
 					oos.writeObject(data);
 					System.out.println("게스트 로그인 성공");
+				}
+				else {
+					oos.writeObject(data);
+					System.out.println("게스트 로그인 실패");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

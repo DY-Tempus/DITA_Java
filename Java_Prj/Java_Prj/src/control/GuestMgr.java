@@ -52,19 +52,20 @@ public class GuestMgr {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Guest WHERE Guest_ID = ?";
+        String sql = "SELECT * FROM Guest WHERE Guest_ID = ? and User_ID = ?";
         
         boolean flag = false;
         try {
             con = pool.getConnection();
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, bean.getGuest_ID());
+            pstmt.setString(2, bean.getUser_ID());
             rs = pstmt.executeQuery();
             
             if (rs.next()) { 
                 flag = true;
-                bean.setUser_ID(rs.getString("User_ID"));
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
