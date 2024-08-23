@@ -145,6 +145,7 @@ public class Server {
 					System.out.println("게스트 로그인 성공");
 				}
 				else {
+					((Guest) data.obj).setUser_ID(null);
 					oos.writeObject(data);
 					System.out.println("게스트 로그인 실패");
 				}

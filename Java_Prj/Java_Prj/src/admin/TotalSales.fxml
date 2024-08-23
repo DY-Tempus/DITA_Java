@@ -24,7 +24,7 @@
          <content>
             <TableView fx:id="tableView" prefHeight="360.0" prefWidth="750.0">
               <columns>
-                <TableColumn fx:id="tableNoColumn" minWidth="120.0" prefWidth="120.0" text="테이블 번호" />
+                <TableColumn fx:id="tableNoColumn" minWidth="120.0" prefWidth="120.0" text="주문 번호" />
                 <TableColumn fx:id="orderDateColumn" minWidth="210.0" prefWidth="210.0" text="주문 시간" />
                 <TableColumn fx:id="menuListColumn" minWidth="250.0" prefWidth="250.0" text="주문 내역" />
                 <TableColumn fx:id="priceColumn" minWidth="147.199951171875" prefWidth="147.199951171875" text="금액" />
