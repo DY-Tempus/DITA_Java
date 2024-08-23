@@ -219,7 +219,26 @@ public class Server {
 
 		         // 새로운 스테이지 생성
 		         Stage stage = new Stage();
-		         stage.initModality(Modality.WINDOW_MODAL);
+		         Stage currentStage =(Stage)MTable.me;
+		         stage.initModality(Modality.APPLICATION_MODAL);
+	             stage.initOwner(MTable.me);
+	             
+	             stage.setOnShown(e -> {
+	                 double stageWidth = stage.getWidth();
+	                 double stageHeight = stage.getHeight();
+	                 double currentStageX = currentStage.getX();
+	                 double currentStageY = currentStage.getY();
+	                 double currentStageWidth = currentStage.getWidth();
+	                 double currentStageHeight = currentStage.getHeight();
+	                 
+	                 // 중앙 위치 계산
+	                 double centerXPosition = currentStageX + (currentStageWidth - stageWidth) / 2;
+	                 double centerYPosition = currentStageY + (currentStageHeight - stageHeight) / 2;
+
+	                 stage.setX(centerXPosition);
+	                 stage.setY(centerYPosition);
+	             });
+		         
 		         // 새로운 장면으로 설정
 		         stage.setScene(MDetailScene);
 		         stage.show();

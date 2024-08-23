@@ -54,6 +54,8 @@ public class MLogin {
 		        // 새로운 장면으로 설정
 		        stage.setScene(MTableScene);
 		        stage.show();
+		        
+		        MTable.me = MTableScene.getWindow();
         	}
         } catch (Exception e) {
             e.printStackTrace();

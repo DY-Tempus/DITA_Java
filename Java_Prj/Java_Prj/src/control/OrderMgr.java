@@ -142,20 +142,20 @@ public class OrderMgr {
 	    try {
 	        con = pool.getConnection();
 	        sql = "SELECT "
-	                + "orders.order_no AS \"테이블 번호\", "
-	                + "TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS') AS \"주문 시간\", "
-	                + "LISTAGG(DISTINCT order_detail.menu_name, ', ') WITHIN GROUP (ORDER BY order_detail.menu_name) AS \"주문 내역\", "
-	                + "SUM(order_detail.order_num * menu.menu_price) AS \"금액\" "
+	                + "o.order_no AS \"테이블 번호\", "
+	                + "TO_CHAR(o.order_date, 'YYYY-MM-DD HH24:MI:SS') AS \"주문 시간\", "
+	                + "LISTAGG(DISTINCT od.menu_name, ', ') WITHIN GROUP (ORDER BY od.menu_name) AS \"주문 내역\", "
+	                + "SUM(od.order_num * m.menu_price) AS \"금액\" "
 	                + "FROM "
-	                + "ORDER_DETAIL order_detail "
-	                + "INNER JOIN ORDERS ON order_detail.order_no = orders.order_no "
-	                + "INNER JOIN MENU ON menu.menu_name = order_detail.menu_name "
+	                + "ORDER_DETAIL od "
+	                + "INNER JOIN ORDERS o ON od.order_no = o.order_no "
+	                + "INNER JOIN MENU m ON m.menu_name = od.menu_name AND m.ctg_name = od.ctg_name "
 	                + "WHERE "
-	                + "TRUNC(orders.order_date) = TRUNC(SYSDATE) "
-	                + "AND orders.user_id = ? "
+	                + "TRUNC(o.order_date) = TRUNC(SYSDATE) "
+	                + "AND o.user_id = ? "
 	                + "GROUP BY "
-	                + "orders.order_no, "
-	                + "TO_CHAR(orders.order_date, 'YYYY-MM-DD HH24:MI:SS')";
+	                + "o.order_no, "
+	                + "TO_CHAR(o.order_date, 'YYYY-MM-DD HH24:MI:SS')";
 
 	        pstmt = con.prepareStatement(sql);
 	        pstmt.setString(1, id);

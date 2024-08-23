@@ -10,8 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class MTable {
+	
+	public static Window me;
 	
 	@FXML 
 	private AnchorPane anchorPane;
