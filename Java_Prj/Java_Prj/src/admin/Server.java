@@ -33,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import entity.DataType;
 import entity.Guest;
@@ -218,7 +219,7 @@ public class Server {
 
 		         // 새로운 스테이지 생성
 		         Stage stage = new Stage();
-
+		         stage.initModality(Modality.WINDOW_MODAL);
 		         // 새로운 장면으로 설정
 		         stage.setScene(MDetailScene);
 		         stage.show();

@@ -7,9 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MTable {
+	
+	@FXML 
+	private AnchorPane anchorPane;
 	
 	@FXML
 	private Button logOutButton;
@@ -89,7 +94,8 @@ public class MTable {
                 stage.setX(centerXPosition);
                 stage.setY(centerYPosition);
             });
-            
+            stage.initOwner(anchorPane.getScene().getWindow());
+            stage.initModality(Modality.WINDOW_MODAL);
             // 새로운 장면으로 설정
             stage.setScene(MOrderScene);
             stage.show();
